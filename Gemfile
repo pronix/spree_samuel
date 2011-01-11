@@ -25,6 +25,9 @@ gem 'mysql2'
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
+group :development, :test do
+  gem "rspec", ">=1.2.2"
+  gem "rspec-rails", ">=1.2.2"
+  gem "webrat", ">=0.4.3"
+  gem "cucumber",">=0.2.2"
+end
