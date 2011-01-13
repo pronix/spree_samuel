@@ -1,7 +1,7 @@
 Feature: Manage Coupon
   In order to manage coupons
-  A User having an account
-  Should be login into the API site
+  An Admin having an account
+  Should be login into the Admin site
 
   Scenario: viewing the coupons list page
     Given I am logged in
@@ -30,15 +30,6 @@ Feature: Manage Coupon
     Then coupon is saved
     And I am shown the show coupon page
     And I should see "Coupon successfully saved!"
-
-  Scenario: with required information for coupon
-    Given I am logged in
-    When I am on generate invoice page
-    And I fill the required information
-    And I press "Generate"
-    Then invoice generated
-    And I am shown the print invoice page
-    And I should see "Invoice successfully generated!"
 
   Scenario: viewing the coupon show page
     Given I am logged in

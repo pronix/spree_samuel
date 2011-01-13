@@ -31,15 +31,6 @@ Feature: Manage Invoice
     And I am shown the show invoice page
     And I should see "Invoice successfully saved!"
 
-  Scenario: with required information for invoice
-    Given I am logged in
-    When I am on generate invoice page
-    And I fill the required information
-    And I press "Generate"
-    Then invoice generated
-    And I am shown the print invoice page
-    And I should see "Invoice successfully generated!"
-
   Scenario: viewing the invoice show page
     Given I am logged in
     When I am on show invoice page

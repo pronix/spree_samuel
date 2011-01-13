@@ -31,15 +31,6 @@ Feature: Manage Category
     And I am shown the show category page
     And I should see "Category successfully saved!"
 
-  Scenario: with required information for category
-    Given I am logged in
-    When I am on generate invoice page
-    And I fill the required information
-    And I press "Generate"
-    Then invoice generated
-    And I am shown the print invoice page
-    And I should see "Invoice successfully generated!"
-
   Scenario: viewing the category show page
     Given I am logged in
     When I am on show category page

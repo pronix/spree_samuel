@@ -1,7 +1,7 @@
 Feature: Manage Product
   In order to manage products
-  A User having an account
-  Should be login into the API site
+  An Admin having an account
+  Should be login into the Admin site
 
   Scenario: viewing the products list page
     Given I am logged in
@@ -30,15 +30,6 @@ Feature: Manage Product
     Then product is saved
     And I am shown the show product page
     And I should see "Product successfully saved!"
-
-  Scenario: with required information for product
-    Given I am logged in
-    When I am on generate invoice page
-    And I fill the required information
-    And I press "Generate"
-    Then invoice generated
-    And I am shown the print invoice page
-    And I should see "Invoice successfully generated!"
 
   Scenario: viewing the product show page
     Given I am logged in
