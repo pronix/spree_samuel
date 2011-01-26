@@ -24,13 +24,13 @@ Feature: View Credit Card Transactions
     Then i see the credit card transaction page
     And I see the transactions of entered username
 
-  Scenario: viewing credit card transaction by userid
+  Scenario: viewing credit card transaction by user_id
     Given I am logged in
     When I am on credit card transaction page
-    And i enter the userid
+    And i enter the user_id
     And i press the "Search"
     Then i see the credit card transaction page
-    And I see the transactions of entered userid
+    And I see the transactions of entered user_id
 
   Scenario: viewing credit card transaction by email
     Given I am logged in

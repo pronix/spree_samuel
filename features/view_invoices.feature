@@ -24,13 +24,13 @@ Feature: View Invoices
     Then i see the invoices page
     And I see the invoices of entered username
 
-  Scenario: viewing invoices by userid
+  Scenario: viewing invoices by user_id
     Given I am logged in
     When I am on invoices page
-    And i enter the userid
+    And i enter the user_id
     And i press the "Search"
     Then i see the invoices page
-    And I see the invoices of entered userid
+    And I see the invoices of entered user_id
 
   Scenario: viewing invoices by email
     Given I am logged in
