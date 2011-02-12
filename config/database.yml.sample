@@ -1,0 +1,23 @@
+development: &DEVELOPMENT
+  adapter: postgresql
+  encoding: unicode
+  database: spree_salmon_development
+  pool: 5
+  username: root
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: spree_salmon_production
+  pool: 5
+  username: root
+
+test: &TEST
+  adapter: postgresql
+  encoding: unicode
+  database: spree_salmon_test
+  pool: 5
+  username: root
+
+cucumber:
+  <<: *TEST
