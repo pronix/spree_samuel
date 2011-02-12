@@ -23,7 +23,9 @@ gem 'spree', '0.40.0'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
+  gem "capybara", "0.4.1.2"
   gem "rspec", "2.4.0"
   gem "rspec-rails",      "2.4.0"
   gem "cucumber","0.10.0"
+  gem "cucumber-rails","0.3.2"
 end
