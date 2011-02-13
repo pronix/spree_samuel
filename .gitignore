@@ -2,3 +2,8 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
+config/database.yml
+*.swp
+*.swo
+db/schema.rb
+
