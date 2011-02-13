@@ -3,25 +3,20 @@ Feature: Admin Login
   An Admin having an account
   Should be able to login into the Admin site
 
-  Scenario: viewing the admin login page
+  Background:
     Given I am not logged in
-    When I am on admin login page
-    Then I see the page
+    When I go to the admin page
+    Then I should be on the login page
 
    Scenario: with an empty login and password
-    Given I am not logged in
-    When I am on admin login page
-    And I fill in "Login" with ""
+    When I fill in "Email" with ""
     And I fill in "Password" with ""
     And I press "Log in"
-    Then I am not logged in
-    And I am shown the admin login page
-    And I should see "Invalid Login name or password!"
+    Then I should be on the login page
+    And I should see "You need to sign in or sign up before continuing."
 
   Scenario: with a invalid login or password
-    Given I am not logged in
-    When I am on admin login page
-    And I fill in "Login" with "user@spree.com"
+    When I fill in "Email" with "user@spree.com"
     And I fill in "Password" with "test"
     And I press "Log in"
     Then I am not logged in
@@ -29,10 +24,8 @@ Feature: Admin Login
     And I should see "Invalid Login name or password!"
 
  Scenario: with a valid login and password
-    Given I am not logged in
-    And I have an admin account
-    When I am on admin login page
-    And I fill in "Login" with "admin@spree.com"
+    Given I have an admin account "admin@spree.com" with "password"
+    And I fill in "Email" with "admin@spree.com"
     And I fill in "Password" with "password"
     And I press "Log in"
     Then I am logged in

@@ -29,3 +29,4 @@ group :development, :test do
   gem "cucumber","0.10.0"
   gem "cucumber-rails","0.3.2"
 end
+gem "samuel", :require => "samuel", :path => "samuel"
