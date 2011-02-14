@@ -1,5 +1,5 @@
 en:
-  log_in: Login
+  log_in: "Log in"
   errors:
     messages:
       not_found: "not found"
