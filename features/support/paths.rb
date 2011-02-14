@@ -10,6 +10,10 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
+    when /^the "([^\"]*)" tax category page$/i
+      admin_tax_category_path(TaxCategory.find_by_name($1))
+    when /^the edit "([^\"]*)" tax category page$/i
+      edit_admin_tax_category_path(TaxCategory.find_by_name($1))
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

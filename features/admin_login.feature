@@ -23,9 +23,4 @@ Feature: Admin Login
     And I should see "Invalid email or password."
 
  Scenario: with a valid login and password
-    Given I have an admin account "admin@spree.com" with "password"
-    And I fill in "Email" with "admin@spree.com"
-    And I fill in "Password" with "password"
-    And I press "Log in"
-    And I should be on the admin page
-    And I should see "Logged in successfully"
+    Given I am logged in as admin "admin@spree.com" with "password"
