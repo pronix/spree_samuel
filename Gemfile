@@ -6,7 +6,6 @@ gem 'capistrano'
 gem "acl9"
 gem "haml"
 gem "hpricot"
-gem "ruby_parser"
 
 group :development, :test do
   gem 'Selenium',            '1.1.14'
