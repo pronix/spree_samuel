@@ -30,5 +30,6 @@ group :development, :test do
   gem "cucumber-rails","0.3.2"
   gem "factory_girl_rails", "1.0.1"
   gem "launchy", "0.3.7"
+  gem "Selenium", "1.1.14"
 end
 gem "samuel", :require => "samuel", :path => "samuel"

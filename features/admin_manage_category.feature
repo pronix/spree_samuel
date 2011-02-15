@@ -66,6 +66,7 @@ Feature: Manage Category
     Then I should be on the admin tax categories page
     And I should see "Successfully updated!"
 
+  @javascript
   Scenario: delete category
     When I am on the admin tax categories page
     Then I should see the Delete link for "category1"
