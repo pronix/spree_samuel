@@ -58,7 +58,7 @@ Feature: Manage Product
     Then I should see the product Delete link for "product1"
     When I follow product Delete link for "product1"
     And show me the page
-    Then I should see the deletion confirmation box for product
-    And I press "Confirm"
+    And I should see the deletion confirmation box
+    And I press "popup_ok"
     Then I should be on the admin products page
-    And I should see "Successfully removed!"
+    And product "product1" should be deleted

@@ -69,9 +69,11 @@ Feature: Manage Category
   @javascript
   Scenario: delete category
     When I am on the admin tax categories page
-    Then I should see the category Delete link for "category1"
-    When I follow category Delete link for "category1"
-    And I should see the deletion confirmation box for category
-    And I press "Ok"
+    Then I should see the tax category Delete link for "category1"
+    When I follow tax category Delete link for "category1"
+    And I should see the deletion confirmation box
+    And I press "popup_ok"
     Then I should be on the admin tax categories page
-    And I should see "Successfully removed!"
+    #Reload page
+    When I am on the admin tax categories page
+    And tax category "category1" should be deleted
