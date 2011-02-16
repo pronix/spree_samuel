@@ -5,16 +5,16 @@ Given /^there is next categories:$/ do |table|
   }
 end
 
-Then /^I should see the Delete link for "([^"]*)"$/ do |name|
+Then /^I should see the category Delete link for "([^"]*)"$/ do |name|
   category = TaxCategory.find_by_name(name)
-  within("tr#tax_category_#{category.id}") do
+  within("tr#product_#{category.id}") do
     Then 'I should see "Delete"'
   end
 end
 
-When /^I follow Delete link for "([^"]*)"$/ do |name|
+When /^I follow category Delete link for "([^"]*)"$/ do |name|
   category = TaxCategory.find_by_name(name)
-  within("tr#tax_category_#{category.id}") do
+  within("tr#product_#{category.id}") do
     click_link("Delete")
   end
 end
