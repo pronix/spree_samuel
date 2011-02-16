@@ -39,6 +39,6 @@ group :development, :test, :cucumber do
   gem "launchy",             "0.3.7"
   gem "Selenium",            "1.1.14"
   gem 'email_spec',          "~> 1.1.1"
-
+  gem 'database_cleaner'
 end
 
