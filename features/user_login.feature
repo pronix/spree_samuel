@@ -8,15 +8,15 @@ Feature: User Login
     When I am on the login page
     Then I see the page
 
+  @javascript @green
    Scenario: with an empty username and password
-    Given I am not logged in
+    Given I am logged out
     When I am on the login page
     And I fill in "Email" with ""
     And I fill in "Password" with ""
     And I press "Log in"
-    Then I am not logged in
-    And I am shown the user login page
-    And I should see "Invalid Login name or password!"
+    Then I should be logged out
+    And I should see "You need to sign in or sign up before continuing."
 
   Scenario: with a invalid username or password
     Given I am not logged in
