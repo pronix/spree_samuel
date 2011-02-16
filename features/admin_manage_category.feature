@@ -5,7 +5,7 @@ Feature: Manage Category
 
   Background:
     Given I am logged in as admin "admin@spree.com" with "password"
-    And there is next categories:
+    And there is next tax categories:
       |name        | description                     | is_default |
       | category1  | this is category 1 description  | 1          |
       | category10 | this is category 10 description | 0          |

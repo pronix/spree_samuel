@@ -1,10 +1,3 @@
-Given /^there is next products:$/ do |table|
-  Product.delete_all
-  table.hashes.each { |hash|
-    Factory(:product, hash)
-  }
-end
-
 Then /^I should see the product Delete link for "([^"]*)"$/ do |name|
   product = Product.find_by_name(name)
   within("tr#product_#{product.id}") do

@@ -1,10 +1,3 @@
-Given /^there is next categories:$/ do |table|
-  TaxCategory.delete_all
-  table.hashes.each { |hash|
-    Factory(:tax_category, hash)
-  }
-end
-
 Then /^I should see the category Delete link for "([^"]*)"$/ do |name|
   category = TaxCategory.find_by_name(name)
   within("tr#product_#{category.id}") do
