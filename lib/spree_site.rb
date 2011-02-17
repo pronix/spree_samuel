@@ -1,7 +1,7 @@
 module SpreeSite
   class Engine < Rails::Engine
     def self.activate
-      # Add your custom site logic here
+      Ability.register_ability(SellerAbility)
     end
     config.to_prepare &method(:activate).to_proc
   end
