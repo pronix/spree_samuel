@@ -29,6 +29,7 @@ gem "samuel", :require => "samuel", :path => "samuel"
 # and rake tasks are available in development mode:
 
 group :development, :test, :cucumber do
+  gem "faker"
   gem 'unicorn'
   gem "capybara",            "0.4.1.2"
   gem "rspec",               "2.5.0"
