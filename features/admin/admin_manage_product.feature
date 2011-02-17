@@ -1,3 +1,6 @@
+# language: en
+
+@green
 Feature: Manage Product
   In order to manage products
   An Admin having an account
@@ -57,8 +60,8 @@ Feature: Manage Product
     When I am on the admin products page
     Then I should see the product Delete link for "product1"
     When I follow product Delete link for "product1"
-    And show me the page
+    # And show me the page
     And I should see the deletion confirmation box
-    And I press "popup_ok"
+    And I confirm popup ok
     Then I should be on the admin products page
-    And product "product1" should be deleted
+    And the goods "product1" must be removed

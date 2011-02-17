@@ -1,3 +1,6 @@
+# language: en
+
+@green
 Feature: Admin Login
   In order to use the Admin site,
   An Admin having an account

@@ -1,3 +1,6 @@
+# language: en
+
+@green
 Feature: Manage Category
   In order to manage categories
   An Admin having an account
@@ -72,7 +75,7 @@ Feature: Manage Category
     Then I should see the tax category Delete link for "category1"
     When I follow tax category Delete link for "category1"
     And I should see the deletion confirmation box
-    And I press "popup_ok"
+    And I confirm popup ok
     Then I should be on the admin tax categories page
     #Reload page
     When I am on the admin tax categories page
