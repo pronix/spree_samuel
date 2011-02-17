@@ -1,3 +1,11 @@
+When /^I confirm popup ok/ do
+  page.driver.browser.execute_script %Q{$('#popup_ok').trigger('click'); }
+end
+
+When /^I confirm that all$/ do
+  page.evaluate_script('window.confirm = function() { return true; }')
+end
+
 When /^(?:|I )return to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
@@ -16,6 +24,4 @@ end
 
 Then /^I debug$/ do
   require 'ruby-debug'; debugger
-  breakpoint
-  0
 end
