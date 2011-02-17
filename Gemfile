@@ -20,8 +20,6 @@ gem "exception_notification_rails3", :git => "git://github.com/railsware/excepti
 gem "samuel", :require => "samuel", :path => "samuel"
 
 
-# To use debugger
-# gem 'ruby-debug'
 
 
 # Bundle gems for the local environment. Make sure to
@@ -41,5 +39,7 @@ group :development, :test, :cucumber do
   gem "Selenium",            "1.1.14"
   gem 'email_spec',          "~> 1.1.1"
   gem 'database_cleaner'
+  gem 'ruby-debug'
+
 end
 
