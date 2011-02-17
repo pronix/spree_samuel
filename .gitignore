@@ -5,3 +5,10 @@ config/database.yml
 db/*.sqlite3
 log/*.log
 tmp/**/*
+coverage/*
+var
+TAGS
+vendor/gems/*
+vendor/bundler/*
+capybara*
+
