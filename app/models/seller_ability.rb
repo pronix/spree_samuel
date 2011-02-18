@@ -13,9 +13,15 @@ class SellerAbility
       can :create, Product
       can :new, Product
       can :read,   Product do |product|
-          product.seller == user
+        product.seller == user
       end
       can :edit,   Product do |product|
+        product.seller == user
+      end
+      can :update,   Product do |product|
+        product.seller == user
+      end
+      can :destroy,   Product do |product|
         product.seller == user
       end
 

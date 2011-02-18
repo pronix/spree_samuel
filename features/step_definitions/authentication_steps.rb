@@ -28,6 +28,14 @@ Given /^I have an admin account of "(.+)\/(.+)"$/ do |email, password|
   Factory(:admin_user,  :email => email, :password => password, :password_confirmation => password)
 end
 
+Given /^the following users exist:$/ do |table|
+  table.hashes.each do |attr|
+    Factory(:user,
+            :email => attr["email"], :password => attr["password"],                                   :password_confirmation => attr["password"],
+            :roles => (attr["roles"]||[]).split(",").map{ |x| Factory("#{x}_role")} )
+  end
+end
+
 When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
   When %{I go to the login page"}
   And %{I fill in "Email" with "#{email}"}

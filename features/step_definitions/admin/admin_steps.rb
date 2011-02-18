@@ -25,3 +25,20 @@ Given /^I am logged in as admin "([^\"]*)" with "([^\"]*)"$/ do |email, password
   And 'I should be on the admin page'
   And 'I should see "Logged in successfully"'
 end
+
+Then /^I should see in admin panel the following list of products:$/ do |table|
+  table.hashes.each do |attr|
+    @product = Product.find_by_name(attr["Name"])
+    with_scope("tr#product_#{@product.id}") do
+      attr.values.each{ |a| page.should have_selector("td", :text => a) }
+    end
+  end
+end
+
+Then /^I should not see in admin panel the following list of products:$/ do |table|
+  table.hashes.each do |attr|
+    with_scope("table.index") do
+      attr.values.each{ |a| page.should_not have_selector("td", :text => a) }
+    end
+  end
+end

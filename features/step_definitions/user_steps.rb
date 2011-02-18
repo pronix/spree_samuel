@@ -16,3 +16,4 @@ Then /^I should be viewing seller dashboard$/ do
    And %Q{I should see link "Products"}
    And %Q{I should see link "Reports"}
 end
+
