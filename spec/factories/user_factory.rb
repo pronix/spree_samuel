@@ -3,7 +3,6 @@ Factory.define(:user) do |record|
   record.login { Factory.next(:login) }
   record.password "spree"
   record.password_confirmation "spree"
-
   #record.bill_address { Factory(:address) }
   #record.ship_address { Factory(:address) }
 end
@@ -16,6 +15,10 @@ end
 
 Factory.define(:admin_user, :parent => :user) do |u|
   u.roles { [Role.find_by_name("admin") || Factory(:admin_role)]}
+end
+
+Factory.define(:seller_user, :parent => :user) do |u|
+  u.roles { [Role.find_by_name("seller") || Factory(:seller_role)]}
 end
 
 
