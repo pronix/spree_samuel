@@ -19,17 +19,6 @@ Feature: Manage Product
         | Ticket2 | TT2 |   130 | 2010-04-06 8:48:21  | 12/10/2010 | Tickets | seller1@spree.com |
       And I sign in as "seller@spree.com/password"
 
-  Scenario: The seller can see a list of their products and not seeing other seller's goods
-    When I go to the admin products page
-    Then I should see in admin panel the following list of products:
-      | Name    | Sku | Master Price |
-      | Ticket1 | TT1 |          230 |
-     And I should not see in admin panel the following list of products:
-      | Name    | Sku | Master Price |
-      | Ticket2 | TT2 |          130 |
-
-
-
   Scenario: viewing the create product page
     When I go to the admin products page
      And I follow "New Product"
