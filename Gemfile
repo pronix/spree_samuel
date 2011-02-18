@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
 gem 'bundler',               '~> 1.0.10'
-gem 'rails',                 '3.0.3'
+gem 'rails',                 '3.0.4'
 gem 'rack',                  '1.2.1'
 gem 'pg',                    '0.10.1'
 
-gem 'spree', '0.40.2'
+gem 'spree', '0.40.3'
 
 gem "exception_notification_rails3", :git => "git://github.com/railsware/exception_notification.git", :require => 'exception_notifier'
 
