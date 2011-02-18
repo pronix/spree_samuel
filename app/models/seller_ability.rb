@@ -11,7 +11,7 @@ class SellerAbility
       # Доступ к товарам
       can :index,  Product
       can :create, Product
-      can :new, Product
+      can :new,    Product
       can :read,   Product do |product|
         product.seller == user
       end
@@ -25,7 +25,13 @@ class SellerAbility
         product.seller == user
       end
 
-
+      # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      # Доступ к заказам
+      can :index,  Order
+      cannot :create, Order
+      can :show,   Order do |order|
+        order.products.map(&:seller_id).include?(user.id)
+      end
 
     end
   end
