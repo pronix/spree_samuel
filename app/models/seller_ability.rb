@@ -11,6 +11,7 @@ class SellerAbility
       # Доступ к товарам
       can :index,  Product
       can :create, Product
+      can :new, Product
       can :read,   Product do |product|
           product.seller == user
       end
