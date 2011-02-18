@@ -19,6 +19,8 @@ gem "exception_notification_rails3", :git => "git://github.com/railsware/excepti
 # Spree extensons
 gem "samuel", :require => "samuel", :path => "samuel"
 gem "spree_social", :git => "git://github.com/spree/spree_social.git"
+gem "prawn"
+gem "spree_print_invoice", :path => "./spree-print-invoice"
 
 
 
