@@ -10,3 +10,9 @@ Then /^I should see login form$|^I am shown the user login page$/ do
   page.should have_css("form[action='/users/sign_in']")
 end
 
+Then /^I should be viewing seller dashboard$/ do
+  Then %Q{I should see link "Overview"}
+   And %Q{I should see link "Orders"}
+   And %Q{I should see link "Products"}
+   And %Q{I should see link "Reports"}
+end

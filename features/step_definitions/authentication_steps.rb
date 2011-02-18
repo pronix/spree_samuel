@@ -15,11 +15,13 @@ Then /^I should be logged in$/ do
 end
 
 Then /^I should be logged out$/ do
-  page.should have_content("Log In")
+  page.should have_content("Log in")
 end
 
-Given /^I am signed up as "(.+)\/(.+)"$/ do |email, password|
-  Factory(:user, :email => email, :password => password, :password_confirmation => password)
+Given /^I am signed up as "(.+)\/(.+)"(?: with roles "([^\"]*)")$/ do |email, password, roles|
+  Factory(:user,
+          :email => email, :password => password, :password_confirmation => password,
+          :roles => roles.split(",").map{ |x| Factory("#{x}_role")} )
 end
 
 Given /^I have an admin account of "(.+)\/(.+)"$/ do |email, password|
@@ -27,9 +29,9 @@ Given /^I have an admin account of "(.+)\/(.+)"$/ do |email, password|
 end
 
 When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
-  When %{I go to the sign in page"}
+  When %{I go to the login page"}
   And %{I fill in "Email" with "#{email}"}
   And %{I fill in "Password" with "#{password}"}
-  And %{I press "Log In"}
+  And %{I press "Log in"}
 end
 

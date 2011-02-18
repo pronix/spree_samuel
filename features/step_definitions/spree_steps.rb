@@ -25,3 +25,11 @@ end
 Then /^I debug$/ do
   require 'ruby-debug'; debugger
 end
+
+Then /^I should see link "([^\"]*)"$/ do |link_text|
+  page.should have_selector("a", :text => link_text)
+end
+
+Then /^I not should see link "([^\"]*)"$/ do |link_text|
+  page.should_not have_selector("a", :text => link_text)
+end
