@@ -1,0 +1,14 @@
+<% if current_user.try(:seller_and_not_admin?) %>
+  <%= f.field_container :name do %>
+    <%= f.label :name, t("name") %><br />
+    <h2><%= object.name  %></h2>
+  <% end %>
+<% else %>
+  <%= hook :admin_inside_taxonomy_form do %>
+    <%= f.field_container :name do %>
+      <%= f.label :name, t("name") %> <span class="required">*</span><br />
+      <%= error_message_on :taxonomy, :name, :class => 'fullwidth title'  %>
+      <%= text_field :taxonomy, :name  %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -9,21 +9,11 @@ class SellerAbility
 
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # Доступ к товарам
-      can :index,  Product
-      can :create, Product
-      can :new,    Product
-      can :read,   Product do |product|
+      can [ :index, :create, :new ],  Product
+      can [ :read, :edit, :update, :destroy ],   Product do |product|
         product.seller == user
       end
-      can :edit,   Product do |product|
-        product.seller == user
-      end
-      can :update,   Product do |product|
-        product.seller == user
-      end
-      can :destroy,   Product do |product|
-        product.seller == user
-      end
+
 
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # Доступ к заказам
@@ -35,48 +25,25 @@ class SellerAbility
 
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # купоны
-      can :index,  Promotion
-      can :create, Promotion
-      can :new,    Promotion
-      can :read,   Promotion do |promotion|
-        promotion.seller == user
-      end
-      can :edit,  Promotion do |promotion|
-        promotion.seller == user
-      end
-      can :update,   Promotion do |promotion|
-        promotion.seller == user
-      end
-      can :destroy,   Promotion do |promotion|
+      can [ :index , :create, :new],  Promotion
+      can [ :read, :edit, :update, :destroy ],   Promotion do |promotion|
         promotion.seller == user
       end
 
-      can :index,  PromotionRule
-      can :create, PromotionRule
-      can :new,    PromotionRule
-      can :read,   PromotionRule do |promotion_rule|
-        promotion_rule.promotion.seller == user
-      end
-      can :edit,  PromotionRule do |promotion_rule|
-        promotion_rule.promotion.seller == user
-      end
-      can :update, PromotionRule do |promotion_rule|
-        promotion_rule.promotion.seller == user
-      end
-      can :destroy, PromotionRule do |promotion_rule|
+
+      can [ :index, :create ],  PromotionRule
+      can [ :read,:edit,:update, :destroy ],   PromotionRule do |promotion_rule|
         promotion_rule.promotion.seller == user
       end
 
-      can :index,  Taxonomy
-      can :create, Taxonomy
-      can :new,    Taxonomy
-      can :read,   Taxonomy
-      can :edit,   Taxonomy
+      # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      # категории товаров(таксоны)
+      can [ :read, :create, :index, :edit, :get_children], Taxonomy
+      cannot :destroy, Taxonomy
 
-      can :index,  Taxon
-      can :create, Taxon
-      can :new,    Taxon
-      can :read,   Taxon
+      can    [ :read, :create ],    Taxon
+      cannot [ :update, :destroy ], Taxon
+
 
     end
   end
