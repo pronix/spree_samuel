@@ -4,6 +4,7 @@ Factory.define(:role) do |record|
   record.name { Factory.next(:role_sequence) }
 end
 
-Factory.define(:admin_role, :parent => :role) do |r|
-  r.name "admin"
-end
+[:admin, :seller].each {  |role|
+  Factory.define(:"#{role}_role", :parent => :role) { |r| r.name role.to_s }
+}
+

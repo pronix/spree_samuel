@@ -1,72 +1,90 @@
+# language: en
+
+@green
 Feature: Manage Coupon
   In order to manage coupons
-  A User having an account
-  Should be login into the API site
+  A Seller having an account
+  Should be login into the site
+
+  Background:
+    Given I have an admin account of "admin@spree.com/123456"
+      And the following users exist:
+        | email             | password  | roles  |
+        | seller@spree.com  | password  | seller |
+        | seller1@spree.com | password1 | seller |
+      And the following promotions exist:
+        | name    | description | code  | seller            |
+        | Coupon1 | Coupon 1    | CODE1 | seller@spree.com  |
+        | Coupon2 | Coupon 2    | CODE2 | seller1@spree.com |
+      And I sign in as "seller@spree.com/password"
+
 
   Scenario: viewing the coupons list page
-    Given I am logged in
-    When I am on coupons list page
-    Then I see the page
+    When I go to the admin promotions page
+    Then I should see in admin panel the following list of promotions:
+      | Name    | Description | Code  |
+      | Coupon1 | Coupon 1    | CODE1 |
+     And I should not see in admin panel the following list of promotions:
+      | Description | Code  |
+      | Coupon 2    | CODE2 |
+
 
   Scenario: viewing the create coupon page
-    Given I am logged in
-    When I am on create coupon page
-    Then I see the page
+    When I go to the admin promotions page
+     And I follow "New Promotion"
+    Then I should see "Create" within "form"
+
 
   Scenario: with empty information for coupon
-    Given I am logged in
-    When I am on create page
-    And I leave the required information empty
-    And I press "Save"
-    Then coupon was not saved
-    And I am shown the create coupon page
-    And I should see "Coupon was not successfully saved!"
+    When I go to the admin promotions page
+     And I follow "New Promotion"
+     And I fill in "Name" with ""
+     And I fill in "Code" with ""
+     And I press "Create"
+    Then I should see "prohibited this record from being saved"
+     And I should see "Name can't be blank"
+     And I should see "Code can't be blank"
+     And I should be on the admin promotions page
+
 
   Scenario: with required information for coupon
-    Given I am logged in
-    When I am on create page
-    And I fill the required information
-    And I press "Save"
-    Then coupon is saved
-    And I am shown the show coupon page
-    And I should see "Coupon successfully saved!"
+    When I go to the admin promotions page
+     And I follow "New Promotion"
+     And I fill in "Name" with "Coupon3"
+     And I fill in "Code" with "CP3"
+     And I fill in "Description" with "Coupon 3"
+     And I press "Create"
+    Then I should see "Successfully created!"
+     And I should be on the admin edit "Coupon3" promotion page
+    When I go to the admin promotions page
+    Then I should see in admin panel the following list of promotions:
+      | Name    | Description | Code  |
+      | Coupon1 | Coupon 1    | CODE1 |
+      | Coupon3 | Coupon 3    | CP3   |
 
-  Scenario: viewing the coupon show page
-    Given I am logged in
-    When I am on show coupon page
-    Then I see the information of the coupon
-
-  Scenario: viewing the edit coupon page
-    Given I am logged in
-    When I am on edit coupon page
-    Then I see the page
 
   Scenario: with empty information for edit coupon
-    Given I am logged in
-    When I am on edit coupon page
-    And I leave the required information empty
-    And I press "Update"
-    Then coupon was not updated
-    And I am shown the edit coupon page
-    And I should see "Coupon was not successfully updated!"
+    When I am on the admin edit "Coupon1" promotion page
+     And I fill in "Name" with ""
+     And I fill in "Code" with ""
+     And I press "Update"
+    Then I should see "prohibited this record from being saved"
+     And I should see "Name can't be blank"
+     And I should see "Code can't be blank"
+
 
   Scenario: with required information for edit coupon
-    Given I am logged in
-    When I am on edit coupon page
-    And I fill the required information
-    And I press "Update"
-    Then coupon updated
-    And I am shown the show coupon page
-    And I should see "Coupon successfully updated!"
+    When I am on the admin edit "Coupon1" promotion page
+     And I fill in "Name" with "Coupon11"
+     And I fill in "Code" with "CODE11"
+     And I press "Update"
+    Then I should see "Successfully updated!"
 
+  @javascript
   Scenario: delete coupon
-    Given I am logged in
-    When I am on coupons list page
-    And I should see the "Delete" link
-    And I press "Delete"
-    Then I see the confirmation box
-    And I press "Confirm"
-    Then coupon was not updated
-    Then coupon deleted
-    And I am shown the coupons list page
-    And I should see "Coupon was successfully deleted!"
+    When I go to the admin promotions page
+    Then I should see the promotion Delete link for "Coupon1"
+    When I follow promotion Delete link for "Coupon1"
+     And I confirm popup ok
+    Then I should be on the admin promotions page
+     And promotion "Coupon1" should be deleted

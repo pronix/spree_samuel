@@ -9,9 +9,9 @@ Feature: Manage Product
   Background:
     Given I am logged in as admin "admin@spree.com" with "password"
     And there is next products:
-      |name       | price        |
-      | product1  | 1000         |
-      | product10 | 150          |
+      | name      | price |
+      | product1  |  1000 |
+      | product10 |   150 |
     And I am on the new admin product page
 
   Scenario: viewing the products list page

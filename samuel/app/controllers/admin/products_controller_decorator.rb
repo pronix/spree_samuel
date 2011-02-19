@@ -3,7 +3,7 @@ Admin::ProductsController.class_eval do
 
   private
 
-  def end_of_association_chain
+  def seller_products
     current_user.has_role?(:admin) ? Product : current_user.products
   end
 
@@ -37,11 +37,9 @@ Admin::ProductsController.class_eval do
       includes = [{:variants => [:images,  {:option_values => :option_type}]}, :master, :images]
       result_limit = params[:limit] || 10
       @collection =
-        [
-         end_of_association_chain.where(["name LIKE ?", "%#{params[:q]}%"]).includes(includes).limit(result_limit),
-         end_of_association_chain.where(["variants.sku LIKE ?", "%#{params[:q]}%"]).includes(:variants_including_master).limit(result_limit) ].flatten
-
-      @collection.uniq
+        [ seller_products.where(["name LIKE ?", "%#{params[:q]}%"]).includes(includes).limit(result_limit),
+          seller_products.where(["variants.sku LIKE ?", "%#{params[:q]}%"]).includes(:variants_including_master).limit(result_limit)
+        ].flatten.uniq
     end
 
   end
