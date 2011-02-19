@@ -1,0 +1,10 @@
+<% content_for :sidebar do %>
+
+  <h3><%= t("configurations") %></h3>
+  <br class="clear" />
+
+  <ul class="sidebar">
+    <%= render :partial => "admin/shared/#{current_user.seller_and_not_admin? ? "seller" : "admin"}_configuration_menu" %>
+  </ul>
+
+<% end %>

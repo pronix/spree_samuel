@@ -67,6 +67,16 @@ class SellerAbility
         promotion_rule.promotion.seller == user
       end
 
+      can :index,  Taxonomy
+      can :create, Taxonomy
+      can :new,    Taxonomy
+      can :read,   Taxonomy
+      can :edit,   Taxonomy
+
+      can :index,  Taxon
+      can :create, Taxon
+      can :new,    Taxon
+      can :read,   Taxon
 
     end
   end
