@@ -1,6 +1,5 @@
 Admin::ProductsController.class_eval do
 
-
   private
 
   def seller_products

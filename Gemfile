@@ -19,8 +19,8 @@ gem "exception_notification_rails3", :git => "git://github.com/railsware/excepti
 # Spree extensons
 gem "samuel", :require => "samuel", :path => "samuel"
 
-
-
+gem 'rqrcode', '0.3.3'
+gem 'rmagick', '2.13.1'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
