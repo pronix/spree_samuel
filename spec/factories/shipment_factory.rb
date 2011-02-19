@@ -1,6 +1,9 @@
-Factory.define(:shipment) do |record|
-  # associations: 
-  record.association(:address, :factory => :address)
-  record.association(:order, :factory => :order)
-  record.association(:shipping_method, :factory => :shipping_method)
+Factory.define :shipment do |f|
+  f.order { Factory(:order) }
+  f.shipping_method { Factory(:shipping_method) }
+  f.tracking 'U10000'
+  f.number "100"
+  f.cost 100.00
+  f.address { Factory(:address) }
+  f.state "pending"
 end
