@@ -1,6 +1,5 @@
 Factory.define :state do |f|
-  f.name "New Yourk"
-  f.abbr "NY"
-  f.country { Country.default }
+  f.name 'ALABAMA'
+  f.abbr 'AL'
+  f.country { |country| country.association(:country) }
 end
-

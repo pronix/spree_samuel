@@ -13,7 +13,8 @@ end
 
 Given /^I am logged in as admin "([^\"]*)" with "([^\"]*)"$/ do |email, password|
   #Logout and go to login
-  Given 'I am not logged in'
+  Given 'I go to the home page'
+  And 'I am logged out'
   When 'I go to the admin page'
   Then 'I should be on the login page'
 
@@ -42,3 +43,23 @@ Then /^I should not see in admin panel the following list of products:$/ do |tab
     end
   end
 end
+
+Then /^I should see in admin panel the following list of promotions:$/ do |table|
+  table.hashes.each do |attr|
+    @promotion = Promotion.find_by_name(attr["Name"])
+    with_scope("tr#promotion_#{@promotion.id}") do
+      attr.except("Name").values.each{ |a| page.should have_selector("td", :text => a) }
+    end
+  end
+
+end
+
+Then /^I should not see in admin panel the following list of promotions:$/ do |table|
+  table.hashes.each do |attr|
+    with_scope("table.index") do
+      attr.values.each{ |a| page.should_not have_selector("td", :text => a) }
+    end
+  end
+
+end
+

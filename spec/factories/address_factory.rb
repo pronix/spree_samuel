@@ -1,19 +1,20 @@
-Factory.define(:address) do |record|
-  record.firstname  { Faker::Name.first_name }
-  record.lastname   { Faker::Name.last_name }
-  record.address1   "W 23rd Street"
-  record.address2   { Faker::Address.secondary_address }
-  record.city       "New York"
-  record.zipcode    "10010"
-  record.phone      { Faker::PhoneNumber.phone_number }
-  record.state_name  "New York"
-  record.alternative_phone { Faker::PhoneNumber.phone_number }
+Factory.define :address do |f|
+  f.firstname 'John'
+  f.lastname 'Doe'
+  f.address1 '10 Lovely Street'
+  f.address2 'Northwest'
+  f.city   "Herndon"
+  f.zipcode '20170'
+  f.phone '123-456-7890'
+  f.alternative_phone "123-456-7899"
 
-  # record.active true
-
-  # associations:
-  record.country {
-    Country.find_by_id(Spree::Config[:default_country_id]) || Country.first || Factory(:country)
-  }
-  record.state { Factory(:state)}
+  f.state  { |address| address.association(:state) }
+  f.country do |address|
+    if address.state
+      address.state.country
+    else
+      address.association(:country)
+    end
+  end
 end
+

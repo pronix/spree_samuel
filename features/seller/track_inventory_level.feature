@@ -1,7 +1,9 @@
+# language: en
+
 Feature: Track Inventory Levels
   In order to track inventory levels
-  A User having an account
-  Should be login into the API site
+  A Seller having an account
+  Should be login into the site
 
   Scenario: viewing the inventory levels page
     Given I am logged in

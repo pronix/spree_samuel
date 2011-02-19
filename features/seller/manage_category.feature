@@ -1,7 +1,9 @@
-Feature: Manage Category
-  In order to manage categories
-  A User having an account
-  Should be login into the API site
+# language: en
+
+Feature: Manage Category(taxons)
+  In order to view and add new categories
+  A Seller having an account
+  Should be login into the site
 
   Scenario: viewing the categories list page
     Given I am logged in

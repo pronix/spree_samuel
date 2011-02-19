@@ -3,6 +3,10 @@ Admin::ProductsController.class_eval do
 
   private
 
+  def seller_products
+    current_user.has_role?(:admin) ? Product : current_user.products
+  end
+
   # Создание товара с учетом продовца
   #
   def build_object
@@ -31,21 +35,19 @@ Admin::ProductsController.class_eval do
                                                                                :page      => params[:page])
     else
       includes = [{:variants => [:images,  {:option_values => :option_type}]}, :master, :images]
-
-      @collection = end_of_association_chain.where(["name LIKE ?", "%#{params[:q]}%"]).includes(includes).limit(params[:limit] || 10)
-      @collection.concat end_of_association_chain.where(["variants.sku LIKE ?", "%#{params[:q]}%"]).includes(:variants_including_master).limit(params[:limit] || 10)
-
-      @collection.uniq
+      result_limit = params[:limit] || 10
+      @collection =
+        [ seller_products.where(["name LIKE ?", "%#{params[:q]}%"]).includes(includes).limit(result_limit),
+          seller_products.where(["variants.sku LIKE ?", "%#{params[:q]}%"]).includes(:variants_including_master).limit(result_limit)
+        ].flatten.uniq
     end
 
   end
 
+
+  private
   def authorize_admin
-    if current_user && current_user.has_role?(:seller) && !current_user.has_role?(:admin)
-      authorize!(params[:action].to_sym, (object||Product))
-    else
-      authorize! :admin, Object
-    end
+    current_user.try(:seller_and_not_admin?) ? authorize!(params[:action].to_sym, (object||Product)) : authorize!( :admin, Object)
   end
 
 end
