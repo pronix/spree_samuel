@@ -44,12 +44,10 @@ Admin::ProductsController.class_eval do
 
   end
 
+
+  private
   def authorize_admin
-    if current_user && current_user.has_role?(:seller) && !current_user.has_role?(:admin)
-      authorize!(params[:action].to_sym, (object||Product))
-    else
-      authorize! :admin, Object
-    end
+    current_user.try(:seller_and_not_admin?) ? authorize!(params[:action].to_sym, (object||Product)) : authorize!( :admin, Object)
   end
 
 end

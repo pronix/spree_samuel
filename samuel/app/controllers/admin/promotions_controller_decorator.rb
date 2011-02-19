@@ -17,13 +17,9 @@ Admin::PromotionsController.class_eval do
     @object.calculator = params[:promotion][:calculator_type].constantize.new if params[:promotion]
   end
 
-
+  private
   def authorize_admin
-    if current_user && current_user.has_role?(:seller) && !current_user.has_role?(:admin)
-      authorize!(params[:action].to_sym, (object||PromotionRule))
-    else
-      authorize! :admin, Object
-    end
+    current_user.try(:seller_and_not_admin?) ? authorize!(params[:action].to_sym, (object||Promotion)) : authorize!( :admin, Object)
   end
 
 end
