@@ -22,8 +22,8 @@ gem "spree_social", :git => "git://github.com/spree/spree_social.git"
 gem "prawn"
 gem "spree_print_invoice", :path => "./spree-print-invoice"
 
-
-
+gem 'rqrcode', '0.3.3'
+gem 'rmagick', '2.13.1'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

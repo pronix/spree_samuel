@@ -5,10 +5,26 @@ Feature: Manage Category(taxons)
   A Seller having an account
   Should be login into the site
 
+  Background:
+    Given I have an admin account of "admin@spree.com/123456"
+      And the following users exist:
+        | email             | password  | roles  |
+        | seller@spree.com  | password  | seller |
+        | seller1@spree.com | password1 | seller |
+      And the following taxonomies exist:
+        | name    |
+        | Tickets |
+        | Drink   |
+      And I sign in as "seller@spree.com/password"
+
+@javascript
   Scenario: viewing the categories list page
-    Given I am logged in
-    When I am on categories list page
-    Then I see the page
+    When I go to the admin taxonomies page
+    Then I should see in admin panel the following list of "taxonomies":
+      | id_name | Name    |
+      | Tickets | Tickets |
+      | Drink   | Drink   |
+
 
   Scenario: viewing the create category page
     Given I am logged in
