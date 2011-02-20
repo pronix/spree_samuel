@@ -6,6 +6,7 @@ class SellerAbility
     if user.has_role? 'seller'
       can :manage, Admin::OverviewController
       can :manage, Admin::ReportsController
+      can :manage, Admin::InventoryController
 
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # Доступ к товарам
@@ -13,7 +14,12 @@ class SellerAbility
       can [ :read, :edit, :update, :destroy ],   Product do |product|
         product.seller == user
       end
+      can [ :index, :create, :new ],  Variant
+      can [ :read, :edit, :update, :destroy ], Variant do |variant|
+        variant.product.seller == user
+      end
 
+      can :manage, OptionType
 
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # Доступ к заказам
