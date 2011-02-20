@@ -14,6 +14,14 @@ Then /^I should see the (.+) Delete link for "([^"]*)"(?: as (.+))?$/ do |factor
   end
 end
 
+Then /^I should not see the (.+) Delete link for "([^"]*)"(?: as (.+))?$/ do |factory, value, search|
+  factory, model = get_factory_and_model(factory)
+  object = model.send("find_by_#{search || "name"}", value)
+  within("tr##{factory}_#{object.id}") do
+    Then 'I should not see "Delete"'
+  end
+end
+
 When /^I follow (.+) Delete link for "([^"]*)"(?: as (.+))?$/ do |factory, value, search|
   factory, model = get_factory_and_model(factory)
   object = model.send("find_by_#{search || "name"}", value)

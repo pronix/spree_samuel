@@ -8,8 +8,8 @@ Product.class_eval do
   end
 
   protected
-    def set_qr_code
-      self.qr_code = ActiveSupport::SecureRandom.hex(8)
-    end
-  
+  def set_qr_code
+    self.qr_code = ActiveSupport::SecureRandom.hex(8)
+  end
+
 end

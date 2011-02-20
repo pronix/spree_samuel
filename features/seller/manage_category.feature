@@ -1,5 +1,6 @@
 # language: en
 
+@green
 Feature: Manage Category(taxons)
   In order to view and add new categories
   A Seller having an account
@@ -17,74 +18,42 @@ Feature: Manage Category(taxons)
         | Drink   |
       And I sign in as "seller@spree.com/password"
 
-@javascript
   Scenario: viewing the categories list page
     When I go to the admin taxonomies page
     Then I should see in admin panel the following list of "taxonomies":
       | id_name | Name    |
       | Tickets | Tickets |
       | Drink   | Drink   |
+    And I should not see the taxonomy Delete link for "Tickets"
+    And I should not see the taxonomy Delete link for "Drink"
 
+  Scenario: Adding a new category
+    When I go to the admin taxonomies page
+     And I follow "New Taxonomy"
+     And I fill in "taxonomy_name" with "Event"
+     And I press "Create"
+    Then I should see "Successfully created!"
+     And I should be on the admin edit "Event" taxonomy page
 
-  Scenario: viewing the create category page
-    Given I am logged in
-    When I am on create category page
-    Then I see the page
+  Scenario: Adding an existing category
+    When I go to the admin taxonomies page
+     And I follow "New Taxonomy"
+     And I fill in "taxonomy_name" with "Tickets"
+     And I press "Create"
+    Then I should see "has already been taken"
 
-  Scenario: with empty information for category
-    Given I am logged in
-    When I am on create page
-    And I leave the required information empty
-    And I press "Save"
-    Then category was not saved
-    And I am shown the create category page
-    And I should see "Category was not successfully saved!"
+  @javascript
+  Scenario: View nested categories
+    When I am on the admin edit "Tickets" taxonomy page
+    Then I should see "Tree"
+     And I should see "Tickets" within "#taxonomy_tree"
+     And I should not see "Update"
 
-  Scenario: with required information for category
-    Given I am logged in
-    When I am on create page
-    And I fill the required information
-    And I press "Save"
-    Then category is saved
-    And I am shown the show category page
-    And I should see "Category successfully saved!"
+  @javascript
+  Scenario: Adding a new nested categories
+    When I am on the admin edit "Tickets" taxonomy page
+    Then I should see "Tree"
+     And I should see "Tickets" within "#taxonomy_tree"
+    When I click right button on "Tickets" element tree
+    Then I should view context menu for seller
 
-  Scenario: viewing the category show page
-    Given I am logged in
-    When I am on show category page
-    Then I see the information of the category
-
-  Scenario: viewing the edit category page
-    Given I am logged in
-    When I am on edit category page
-    Then I see the page
-
-  Scenario: with empty information for edit category
-    Given I am logged in
-    When I am on edit category page
-    And I leave the required information empty
-    And I press "Update"
-    Then category was not updated
-    And I am shown the edit category page
-    And I should see "Category was not successfully updated!"
-
-  Scenario: with required information for edit category
-    Given I am logged in
-    When I am on edit category page
-    And I fill the required information
-    And I press "Update"
-    Then category updated
-    And I am shown the show category page
-    And I should see "Category successfully updated!"
-
-  Scenario: delete category
-    Given I am logged in
-    When I am on categories list page
-    And I should see the "Delete" link
-    And I press "Delete"
-    Then I see the confirmation box
-    And I press "Confirm"
-    Then category was not updated
-    Then category deleted
-    And I am shown the categories list page
-    And I should see "Category was successfully deleted!"

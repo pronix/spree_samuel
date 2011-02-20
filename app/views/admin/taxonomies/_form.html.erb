@@ -1,4 +1,4 @@
-<% if current_user.try(:seller_and_not_admin?) %>
+<% if current_user.try(:seller_and_not_admin?) && !object.new_record? %>
   <%= f.field_container :name do %>
     <%= f.label :name, t("name") %><br />
     <h2><%= object.name  %></h2>
