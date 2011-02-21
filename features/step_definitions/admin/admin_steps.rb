@@ -63,3 +63,22 @@ Then /^I should not see in admin panel the following list of promotions:$/ do |t
 
 end
 
+
+Then /^I should see in admin panel the following list of "([^\"]*)":$/ do |collection, table|
+  klass = collection.classify.constantize
+  table.hashes.each do |attr|
+    @obj = klass.find_by_name(attr["id_name"])
+    with_scope("tr##{klass.model_name.singular}_#{@obj.id}") do
+      attr.except("id_name").values.each{ |a| page.should have_selector("td", :text => a) }
+    end
+  end
+
+end
+
+When /^I fill in "([^\"]*)" with "([^\"]*)" for variant "([^\"]*)"$/ do |value, field, product_name_and_variant_sku|
+  @product_name, @variant_sku = product_name_and_variant_sku.split(':')
+  @product = Product.find_by_name(@product_name)
+  @variant = @product.variants_including_master.find_by_sku(@variant_sku)
+  fill_in("variants[#{@variant.id}][#{field}]", :with => value)
+end
+

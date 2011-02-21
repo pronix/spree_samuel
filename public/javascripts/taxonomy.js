@@ -119,54 +119,81 @@ jQuery(document).ready(function(){
           var id_of_node = obj.attr("id");
           var type_of_node = obj.attr("rel");
           var menu = {};
+          var cannot_actions = $("#taxonomy_tree").attr("data-cannot").split(',');
+
           if(type_of_node == "root") {
-            menu = {
-              "create" : {
-                "label"            : "Create",
-                "action"           : function (obj) { this.create(obj); }
-              },
-               "paste" : {
+            if (cannot_actions.indexOf("create") == -1){
+             menu["create"] = {
+                 "label"            : "Create",
+                 "action"           : function (obj) { this.create(obj); }
+              };
+            };
+
+            if (cannot_actions.indexOf("paste") == -1){
+              menu["paste"] = {
                  "separator_before" : true,
                  "label"            : "Paste",
                  "action"           : function (obj) { is_cut = false; this.paste(obj); },
                  "_disabled"        : is_cut == false
-              },
-              "edit" : {
+              };
+
+            };
+
+          if (cannot_actions.indexOf("edit") == -1){
+            menu["edit"] = {
                 "separator_before" : true,
                 "label"            : "Edit",
                 "action"           : function (obj) { window.location = base_url + obj.attr("id") + "/edit/"; }
-              }
-            }
+              };
+
+          };
+
           } else {
-            menu =  {
-              "create" : {
-                "label"            : "Create",
-                "action"           : function (obj) { this.create(obj); }
-              },
-              "rename" : {
+            if (cannot_actions.indexOf("create") == -1){
+              menu["create"] = {
+                   "label"            : "Create",
+                   "action"           : function (obj) { this.create(obj); }
+                };
+            };
+            if (cannot_actions.indexOf("rename") == -1){
+              menu["rename"] = {
                 "label"            : "Rename",
                 "action"           : function (obj) { this.rename(obj); }
-              },
-              "remove" : {
+              }
+            };
+            if (cannot_actions.indexOf("remove") == -1){
+              menu["remove"] = {
                 "label"            : "Remove",
                 "action"           : function (obj) { this.remove(obj); }
-              },
-              "cut" : {
+              }
+            };
+
+            if (cannot_actions.indexOf("cut") == -1){
+              menu["cut"] = {
                 "separator_before" : true,
                 "label"            : "Cut",
                 "action"           : function (obj) { is_cut = true; this.cut(obj); }
-              },
-              "paste" : {
+              }
+            };
+
+            if (cannot_actions.indexOf("paste") == -1){
+              menu["paste"] = {
                 "label"            : "Paste",
                 "action"           : function (obj) { is_cut = false; this.paste(obj); },
                 "_disabled"        : is_cut == false
-              },
-              "edit" : {
+              }
+            };
+
+            if (cannot_actions.indexOf("edit") == -1){
+              menu["edit"] = {
                 "separator_before" : true,
                 "label"            : "Edit",
-                "action"           : function (obj) { window.location = base_url + obj.attr("id") + "/edit/"; }
+                "action"           : function (obj) {
+                                      window.location = base_url + obj.attr("id") + "/edit/";
+                                     }
               }
-                  }
+            };
+
           }
           return menu;
       }

@@ -19,8 +19,12 @@ module NavigationHelpers
       admin_product_path(Product.find_by_name($1))
     when /^the edit "([^\"]*)" product page$/i
       edit_admin_product_path(Product.find_by_name($1))
-    when /^the admin edit "([^\"]*)" promotion page/
-      edit_admin_promotion_path(Promotion.find_by_name($1))
+    when /^the admin edit "([^\"]*)" ([^\"]*) page/
+      obj_id, factory, klass = $1, $2.gsub(/\s/, "_").singularize
+      klass = factory.camelcase.constantize
+      obj = klass.send((klass.respond_to?(:name) ? :find_by_name : :find_by_id), obj_id )
+      self.send(["edit", "admin",factory , "path"].join("_").to_sym, obj)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
