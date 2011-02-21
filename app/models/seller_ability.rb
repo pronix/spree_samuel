@@ -7,6 +7,7 @@ class SellerAbility
       can :manage, Admin::OverviewController
       can :manage, Admin::ReportsController
       can :manage, Admin::InventoryController
+      can :manage, Admin::TrackAccountsController
 
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # Доступ к товарам

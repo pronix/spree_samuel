@@ -5,4 +5,11 @@ class SamuelHooks < Spree::ThemeSupport::HookListener
 
 )
   end
+  insert_after :admin_tabs do
+    %(<%=  tab(:track_accounts)  %>)
+  end
+  insert_after :seller_tabs do
+    %(<%=  tab(:track_accounts)  %>)
+  end
+
 end
