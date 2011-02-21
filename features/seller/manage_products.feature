@@ -23,6 +23,7 @@ Feature: Manage Product
     When I go to the admin products page
      And I follow "New Product"
     Then I should see "Create" within "form"
+    And I should see "Generate QR-Code"
 
   Scenario: with empty information for product
     When I go to the admin products page
