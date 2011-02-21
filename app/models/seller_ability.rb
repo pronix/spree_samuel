@@ -21,6 +21,13 @@ class SellerAbility
 
       can :manage, OptionType
 
+      # Изображения для товаров
+      #
+      can [ :index, :new, :read, :create ], Image
+      can [ :edit, :update, :destroy     ], Image do |image|
+        image.viewable.respond_to?(:seller) ? image.viewable.seller == user : true
+      end
+
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # Доступ к заказам
       can :index,  Order
