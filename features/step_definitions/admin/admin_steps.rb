@@ -75,4 +75,10 @@ Then /^I should see in admin panel the following list of "([^\"]*)":$/ do |colle
 
 end
 
+When /^I fill in "([^\"]*)" with "([^\"]*)" for variant "([^\"]*)"$/ do |value, field, product_name_and_variant_sku|
+  @product_name, @variant_sku = product_name_and_variant_sku.split(':')
+  @product = Product.find_by_name(@product_name)
+  @variant = @product.variants_including_master.find_by_sku(@variant_sku)
+  fill_in("variants[#{@variant.id}][#{field}]", :with => value)
+end
 
