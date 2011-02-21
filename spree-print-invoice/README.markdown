@@ -1,9 +1,9 @@
 SUMMARY
 =======
 
-This extension provides a "Print Invoice" button on the Admin Orders view screen which generates a PDF of the order details.
+This extension provides a "Print Invoice" button on the Orders view screen which generates a PDF of the order details.
 
- 
+
 INSTALLATION
 ============
 
@@ -14,7 +14,7 @@ INSTALLATION
 2. run bundler
 
     bundle install
-  
+
 3. Enjoy!
 
 Configuration

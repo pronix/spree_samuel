@@ -4,23 +4,14 @@ require 'prawn_handler'
 
 module PrintInvoice
   class Engine < Rails::Engine
-    
+
     def self.activate
-
-      Admin::OrdersController.class_eval do
-        show.success.wants.pdf do
-          template = params[:template] || "invoice"
-          render :layout => false , :template => "admin/orders/#{template}.pdf.prawn"
-        end #
+      Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
+          Rails.env.production? ? require(c) : load(c)
       end
-
-
     end
-
-
     config.autoload_paths += %W(#{config.root}/lib)
     config.to_prepare &method(:activate).to_proc
-
   end
 end
 
