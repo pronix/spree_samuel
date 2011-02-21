@@ -33,9 +33,19 @@ class SellerAbility
       # Доступ к заказам
       can :index,  Order
       cannot :create, Order
-      can :show,   Order do |order|
+      can [:show, :read, :user],   Order do |order|
         order.products.map(&:seller_id).include?(user.id)
       end
+
+      can [:edit],   Order do |order, token|
+        order.products.map(&:seller_id).include?(user.id)
+      end
+
+      can :index, Payment
+      can :read,  Payment do |payment|
+        payment.order.products.map(&:seller_id).include?(user.id)
+      end
+
 
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # купоны
