@@ -1,41 +1,44 @@
 <%= render :partial => 'admin/shared/product_sub_menu' %>
 
-<h1>Inventory Management</h1>
-<h4>Here is a list of everything you've got in inventory. To add or subtract items, simply modify the number listed in the 'On Hand' column.</h4>
+<h1><%= t("inventory_management") %></h1>
+<h4><%= t("title_list_inventory") %></h4>
 <hr><br>
 
 <%= form_tag admin_inventory_path, :method => :put  do %>
-<% for product in @inventory %>
-<h3><%= product.name %></h3>
+
 <table class="index">
 	<thead>
 	  <tr>
-			<th width="100">SKU</th>
-      <th width="10">Product</th>
-			<th width="250">Variant</th>
-			<th width="200">On Hand</th>
+			<th width="100"><%= t("sku")%></th>
+			<th width="250"><%= t("options") %></th>
+			<th width="200"><%= t("on_hand") %></th>
 		</tr>
 	</thead>
 	<tbody>
-		<% for variant in product.variants %>
+<% for product in @inventory %>
+    <tr id="<%= dom_id product %>">
+     <td colspan=3><h3><%= t('product') %>: <%= link_to product.name, edit_admin_product_path(product) %></h3></td>
+    </tr>
+    <% variants = product.has_variants? ? product.variants : [product.master] %>
+		<% for variant in variants %>
 		<% unless variant.deleted? %>
-		<tr>
-			<td width="100"><%= text_field_tag "variant_skus[#{variant.id}[]", variant.sku %></td>
-			<td width="100"><%= variant.name %></td>
-      <td width="250"><%= variant.option_values.map{|x| "#{x.option_type.name}: #{x.presentation}" } %></td>
-			<td width="200"><%= text_field_tag "variants[#{variant.id}][]", variant.on_hand, :size => 3 %></td>
+		<tr id="<%= dom_id variant %>">
+			<td width="100"><%= text_field_tag "variants[#{variant.id}][sku]", variant.sku %></td>
+      <td width="250"><%= product.has_variants? ? variant.options_text : "master" %></td>
+			<td width="200"><%= text_field_tag "variants[#{variant.id}][on_hand]", variant.on_hand, :size => 3 %></td>
 
 			<% end %>
 		  <% end %>
 		</tr>
+<% end %>
 	</tbody>
 	<br>
 </table>
 <br />
+
+
+<%= submit_tag t('update_inventory') %>
+
 <% end %>
 
-<%= submit_tag 'Update Inventory' %>
-
-<% end %>
-
-
+<%= will_paginate(:previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;") %>

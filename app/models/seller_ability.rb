@@ -7,6 +7,7 @@ class SellerAbility
       can :manage, Admin::OverviewController
       can :manage, Admin::ReportsController
       can :manage, Admin::InventoryController
+      can :manage, Admin::TrackAccountsController
 
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # Доступ к товарам
@@ -21,13 +22,30 @@ class SellerAbility
 
       can :manage, OptionType
 
+      # Изображения для товаров
+      #
+      can [ :index, :new, :read, :create ], Image
+      can [ :edit, :update, :destroy     ], Image do |image|
+        image.viewable.respond_to?(:seller) ? image.viewable.seller == user : true
+      end
+
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # Доступ к заказам
       can :index,  Order
       cannot :create, Order
-      can :show,   Order do |order|
+      can [:show, :read, :user],   Order do |order|
         order.products.map(&:seller_id).include?(user.id)
       end
+
+      can [:edit],   Order do |order, token|
+        order.products.map(&:seller_id).include?(user.id)
+      end
+
+      can :index, Payment
+      can :read,  Payment do |payment|
+        payment.order.products.map(&:seller_id).include?(user.id)
+      end
+
 
       # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       # купоны
