@@ -44,5 +44,6 @@ end
 
 Order.class_eval do
 
-  # scope :by_seller, lambda{|vendor_id| where(:seller_id => vendor_id)}
+  scope :by_seller, lambda{|vendor_id| joins(:line_items => {:variant => :product}).where(:"products.seller_id" => vendor_id) }
+
 end
