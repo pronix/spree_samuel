@@ -9,12 +9,6 @@ Admin::OverviewController.class_eval do
     orders_current_user.count > Spree::Config.instance.preferences["count_show_dashboard"].to_i
   end
 
-  # Заказы текущего пользователя
-  #
-  def orders_current_user
-    (current_user.try(:seller_and_not_admin?) ?  current_user.seller_orders : Order)
-  end
-
   def conditions(params)
     if params.key? :to
       ["orders.completed_at >= ? AND orders.completed_at <= ?", params[:from], params[:to]]
@@ -90,7 +84,7 @@ Admin::OverviewController.class_eval do
   end
 
   def biggest_spenders
-    spenders = orders_current_user.sum(:total, :group => :user_id, :limit => 5, :order => "sum(total) desc", :conditions => "orders.completed_at is not null and order.user_id is not null")
+    spenders = orders_current_user.sum(:total, :group => :user_id, :limit => 5, :order => "sum(total) desc", :conditions => "orders.completed_at is not null and orders.user_id is not null")
     spenders = spenders.map do |o|
       orders = User.find(o[0]).orders
       qty = orders.size
