@@ -1,3 +1,5 @@
+# language: en
+
 Feature: Store User Shipping Address
   In order to store the user shipping address,
   A User having an account

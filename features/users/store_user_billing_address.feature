@@ -1,14 +1,16 @@
+# language: en
+
 Feature: Store User Billing Address
   In order to store the user billing address,
   A User having an account
-  Should be login into the API site
+  Should be login into the site
 
   Scenario: viewing the store billing address page
     Given I am logged in
     When I am on store billing address page
     Then I see the page
 
-   Scenario: with empty information for billing address
+  Scenario: with empty information for billing address
     Given I am logged in
     When I am on store billing address page
     And I fill in "First name" with ""
