@@ -9,7 +9,7 @@ class AddressesController < Spree::BaseController
 
   def update
     @address.attributes = params[:address]
-    if @address.save && current_user.update_attribute(:bill_address_id, @address.id)
+    if @address.save && current_user.update_attribute(:"#{@address_type}_address_id", @address.id)
       redirect_to addresses_path(@address_type), :notice => "Successfully Updated."
     else
       render :action => :edit

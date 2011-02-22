@@ -24,7 +24,8 @@ module NavigationHelpers
       klass = factory.camelcase.constantize
       obj = klass.send((klass.respond_to?(:name) ? :find_by_name : :find_by_id), obj_id )
       self.send(["edit", "admin",factory , "path"].join("_").to_sym, obj)
-
+    when /^the edit (.+) addresses page/
+      edit_addresses_path($1.to_s =~ /billing/ ? :bill : :ship)
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
