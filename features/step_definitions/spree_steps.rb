@@ -1,4 +1,5 @@
 When /^I confirm popup ok/ do
+  wait_until { page.evaluate_script("jQuery.active === 0") }
   page.driver.browser.execute_script %Q{$('#popup_ok').trigger('click'); }
 end
 
