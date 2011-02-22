@@ -20,6 +20,7 @@ Feature: Manage Product
 
   Scenario: viewing the create product page
     Then I should see "Create" within "form"
+    And I should see "Generate QR-Code"
 
   Scenario: with empty information for product
     And I fill in "Name" with ""

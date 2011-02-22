@@ -2,4 +2,10 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  track_accounts: Track accounts
+  show_track: Show Track
+  balance: Balance
+  track_accounts: Track Accounts
+  inventory_management: Inventory Management
+  title_list_inventory: "Here is a list of everything you've got in inventory. To add or subtract items, simply modify the number listed in the 'On Hand' column."
+  update_inventory: Update Inventory

@@ -11,4 +11,5 @@ TAGS
 vendor/gems/*
 vendor/bundler/*
 capybara*
+public/assets/*
 

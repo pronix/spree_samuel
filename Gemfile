@@ -21,6 +21,7 @@ gem "samuel", :require => "samuel", :path => "samuel"
 gem "spree_social", :git => "git://github.com/spree/spree_social.git"
 gem "prawn"
 gem "spree_print_invoice", :path => "./spree-print-invoice"
+gem "spree_qr_code", :require => "spree_qr_code", :path => "spree_qr_code"
 
 gem 'rqrcode', '0.3.3'
 gem 'rmagick', '2.13.1'
@@ -43,6 +44,4 @@ group :development, :test, :cucumber do
   gem 'email_spec',          "~> 1.1.1"
   gem 'database_cleaner'
   gem 'ruby-debug'
-
 end
-

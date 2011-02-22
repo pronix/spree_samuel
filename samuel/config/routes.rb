@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   namespace :admin do
     match '/inventory' => 'inventory#index',  :as => 'inventory', :via => :get
     match '/inventory' => 'inventory#update', :as => 'inventory', :via => :put
+    match '/track-accounts' => 'track_accounts#index',  :as => 'track_accounts', :via => :get
   end
 end

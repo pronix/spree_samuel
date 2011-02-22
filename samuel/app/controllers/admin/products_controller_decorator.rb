@@ -34,15 +34,10 @@ Admin::ProductsController.class_eval do
                                                                                :page      => params[:page])
     else
       includes = [{:variants => [:images,  {:option_values => :option_type}]}, :master, :images]
-      result_limit = params[:limit] || 10
-      @collection =
-        [ seller_products.where(["name LIKE ?", "%#{params[:q]}%"]).includes(includes).limit(result_limit),
-          seller_products.where(["variants.sku LIKE ?", "%#{params[:q]}%"]).includes(:variants_including_master).limit(result_limit)
-        ].flatten.uniq
+      @collection = seller_products.includes(includes).search_by_name_or_sku(params[:q]).limit(params[:limit] || 20)
     end
 
   end
-
 
   private
   def authorize_admin
