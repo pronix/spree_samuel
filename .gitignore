@@ -1,4 +1,7 @@
 .bundle
+Gemfile.lock
+db/schema.rb
+config/database.yml
 db/*.sqlite3
 log/*.log
 tmp/**/*
@@ -6,4 +9,12 @@ config/database.yml
 *.swp
 *.swo
 db/schema.rb
+coverage/*
+var
+TAGS
+vendor/gems/*
+vendor/bundler/*
+capybara*
+public/assets/*
+db/sample/**/*
 

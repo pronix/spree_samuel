@@ -1,0 +1,6 @@
+default: --tags ~@selenium -r features/support/env.rb -r features/step_definitions features
+selenium: --tags @selenium -r features/support/env.rb -r features/support/selenium.rb -r features/step_definitions features
+green: --tags @green -r features/support/env.rb -r features/step_definitions features
+autotest: --tags ~@selenium -r features/support/env.rb -r features/step_definitions features
+wip:  --tags ~@green -r features/support/env.rb -r features/step_definitions features
+default-progress: --tags ~@selenium -r features/support/env.rb -r features/step_definitions features --format progress

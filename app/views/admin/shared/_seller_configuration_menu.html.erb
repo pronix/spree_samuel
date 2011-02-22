@@ -1,0 +1,5 @@
+<%= hook :seller_configurations_sidebar_menu do %>
+<li<%== ' class="active"' if ['taxonomies', 'taxons'].include? controller.controller_name %>>
+  <%= link_to t("taxonomies"), admin_taxonomies_path %>
+</li>
+<% end %>

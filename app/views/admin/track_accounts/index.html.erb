@@ -1,0 +1,49 @@
+<h1><%= t("track_accounts") %></h1>
+<hr><br>
+
+<table class="index">
+	<thead>
+	  <tr>
+			<th width="100"><%= t("user")%>/<%= t("spree.date")%></th>
+      <th width="100"><%= t("order_number")%></th>
+			<th width="250"><%= t("total") %></th>
+			<th width="200"><%= t("payment_state") %></th>
+		</tr>
+	</thead>
+
+	<tbody>
+    <% @users.each do |user| %>
+    <% unless user.orders.blank? %>
+    <tr id="<%= dom_id user %>">
+      <td colspan=3>
+        <b><%= t('user') %>: <%= user.login %></b>
+      </td>
+      <td>  <%= link_to t("show_track"), "", :class => "show_track_accounts" %> </td>
+    </tr>
+    <% user.orders.each do |order| %>
+    <% if can? :read, order %>
+		<tr id="<%= dom_id order %>" class="user_<%= user.id %>_orders" style="display:none;">
+			<td width="100"><%= l order.created_at, :format => :long %></td>
+      <td width="100"><%= link_to order.number, edit_admin_order_path(order) %></td>
+      <td width="250"><%= number_to_currency order.total  %></td>
+			<td width="200">
+        <p>
+          <%= order.outstanding_balance < 0 ? t('credit_owed') : t('balance_due') %> <strong>
+          <%= number_to_currency order.outstanding_balance %></strong>
+        </p>
+      </td>
+		</tr>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+	</tbody>
+	<br>
+</table>
+<br />
+
+
+
+
+<%= will_paginate(@users, :previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;") %>
+

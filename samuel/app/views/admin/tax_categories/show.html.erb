@@ -1,0 +1,14 @@
+<%= render :partial => 'admin/shared/configuration_menu' %>
+
+<h1><%=t("tax_category")%></h1>
+
+<%= label_tag "Name:" %>
+<%= @tax_category.name %>
+<br/>
+<%= label_tag "Description:" %>
+<%= @tax_category.description %>
+<br/>
+<%= label_tag "Is default:" %>
+<%= @tax_category.is_default.to_s.humanize %>
+<br/>
+<%= link_to "Edit", edit_admin_tax_category_path(@tax_category) %>
