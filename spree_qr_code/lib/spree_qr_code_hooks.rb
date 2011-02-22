@@ -16,5 +16,12 @@ class SpreeQrCodeHooks < Spree::ThemeSupport::HookListener
           <% end %>
        )
   end
-
+  insert_after :admin_product_form_left do
+    %(
+       <p>
+        <%= f.label :generate_qr_code, t("generate_qr_code") %>
+        <%= f.check_box :generate_qr_code%>
+       </p>
+     )
+  end
 end
