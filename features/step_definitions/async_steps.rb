@@ -9,3 +9,7 @@ Then /^async (?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selec
   end
 end
 
+When /^async (.+)/ do |step|
+  wait_until { page.evaluate_script("jQuery.active === 0") }
+  When step
+end

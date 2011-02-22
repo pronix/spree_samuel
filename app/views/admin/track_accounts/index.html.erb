@@ -7,15 +7,16 @@
 			<th width="100"><%= t("user")%>/<%= t("spree.date")%></th>
       <th width="100"><%= t("order_number")%></th>
 			<th width="250"><%= t("total") %></th>
-			<th width="200"><%= t("balance") %></th>
+			<th width="200"><%= t("payment_state") %></th>
 		</tr>
 	</thead>
 
 	<tbody>
     <% @users.each do |user| %>
+    <% unless user.orders.blank? %>
     <tr id="<%= dom_id user %>">
       <td colspan=3>
-        <b><%= t('user') %> : <%= user.login %></b>
+        <b><%= t('user') %>: <%= user.login %></b>
       </td>
       <td>  <%= link_to t("show_track"), "", :class => "show_track_accounts" %> </td>
     </tr>
@@ -32,6 +33,7 @@
         </p>
       </td>
 		</tr>
+    <% end %>
     <% end %>
     <% end %>
     <% end %>

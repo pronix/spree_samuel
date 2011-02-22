@@ -1,5 +1,6 @@
 require 'qrimage'
 class QrCode < ActiveRecord::Base
+  SMALL_SIZE = 2
   belongs_to :line_item
   before_create :set_qr_code
 
@@ -18,14 +19,14 @@ class QrCode < ActiveRecord::Base
     end
   end
 
-  def image(size = 2)
+  def image(size = SMALL_SIZE)
     QRImage.create_qr(self.code, :size => size)
   end
-  
+
   protected
     def set_qr_code
       self.code = ActiveSupport::SecureRandom.hex(7)
     end
-  
-  
+
+
 end
