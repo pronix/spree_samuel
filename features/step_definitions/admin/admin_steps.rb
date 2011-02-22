@@ -82,3 +82,29 @@ When /^I fill in "([^\"]*)" with "([^\"]*)" for variant "([^\"]*)"$/ do |value, 
   fill_in("variants[#{@variant.id}][#{field}]", :with => value)
 end
 
+
+Then /^I should see the following list of users in track accounts:$/ do |table|
+  table.hashes.each do |attrs|
+    @user = User.find_by_email(attrs["user"])
+    with_scope("tr#user_#{@user.id}") do
+      attrs.except("user").values.each{ |a| page.should have_selector("td", :text => a) }
+    end
+  end
+
+end
+
+When /^I click "([^\"]*)" within track accounts for "([^\"]*)"$/ do |link, user_email|
+  with_scope("tr#user_#{User.find_by_email(user_email).try(:id)}>td:last") do
+    click_link(link)
+  end
+end
+
+Then /^I should see the following list of orders for "([^\"]*)":$/ do |user_email, table|
+  @user = User.find_by_email(user_email)
+  table.hashes.each do |attrs|
+    @order =  Order.find_by_number(attrs["number"])
+    with_scope("tr#order_#{@order.id}") do
+      attrs.values.each{ |a| page.should have_selector("td", :text => a) }
+    end
+  end
+end

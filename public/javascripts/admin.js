@@ -226,9 +226,7 @@ jQuery(".observe_field").live('change', function() {
 });
 
 jQuery("a.show_track_accounts").live("click", function(){
-console.log('-')
       var tr = $(this).parents("tr:first");
-       console.log($(tr).attr('id')+"_orders")
         $("tr."+$(tr).attr('id')+"_orders").toggle();
        return false;
     });

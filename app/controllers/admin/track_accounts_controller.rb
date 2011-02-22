@@ -6,7 +6,7 @@ class Admin::TrackAccountsController < Admin::BaseController
         current_user.customers
       else
         User
-      end.joins(:orders).order(:"orders.created_at DESC").paginate(
+      end.includes(:orders).order(:"orders.created_at DESC").paginate(
                                                     :per_page => Spree::Config[:admin_products_per_page], :page => params[:page])
 
   end
