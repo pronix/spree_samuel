@@ -1,0 +1,39 @@
+<h1><%= t("#{@address_type == :ship ? :shipp : :bill}ing_address")%></h1>
+
+<table class="index">
+
+  <% [["first_name", "firstname"], ["last_name", "lastname"], ["street_address", "address1"], ["city"]].each do |field| %>
+  <tr>
+    <td><%= t(field.first) %>:</td>
+    <td><%= @address.try(field.last) %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <td><%= t("state") %>:</td>
+    <td><%= @address.try(:state_name) || @address.try(:state).try(:name) %></td>
+  </tr>
+
+  <tr>
+    <td><%= t("zip") %>:</td>
+    <td><%= @address.try(:zipcode) %></td>
+  </tr>
+
+  <tr>
+    <td><%= t("country") %>:</td>
+    <td><%= @address.try(:country).try(:name) %></td>
+  </tr>
+
+  <tr>
+    <td><%= t("phone") %>:</td>
+    <td><%= @address.try(:phone) %></td>
+  </tr>
+  <% if  Spree::Config[:alternative_billing_phone] %>
+  <tr>
+    <td><%= t("alternative_phone") %>:</td>
+    <td><%= @address.try(:alternative_phone) %></td>
+  </tr>
+
+   <% end %>
+
+</table>
+<%= link_to t("edit"), edit_addresses_path(@address_type) %>

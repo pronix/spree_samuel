@@ -28,6 +28,8 @@ module NavigationHelpers
     when /^invoices list page$/
       '/account'
 
+    when /^the edit (.+) addresses page/
+      edit_addresses_path($1.to_s =~ /billing/ ? :bill : :ship)
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

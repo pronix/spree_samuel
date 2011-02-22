@@ -1,4 +1,5 @@
 When /^I confirm popup ok/ do
+  wait_until { page.evaluate_script("jQuery.active === 0") }
   page.driver.browser.execute_script %Q{$('#popup_ok').trigger('click'); }
 end
 
@@ -32,4 +33,11 @@ end
 
 Then /^I not should see link "([^\"]*)"$/ do |link_text|
   page.should_not have_selector("a", :text => link_text)
+end
+
+Given /^load default data$/ do
+  Fixtures.reset_cache
+  Dir.glob(Rails.root + 'spec/data/default/*.{yml,csv,rb}').each do |file|
+    Fixtures.create_fixtures('spec/data/default', File.basename(file, '.*'))
+  end
 end

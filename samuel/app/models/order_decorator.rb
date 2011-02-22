@@ -46,4 +46,18 @@ Order.class_eval do
 
   scope :by_seller, lambda{|vendor_id| joins(:line_items => {:variant => :product}).where(:"products.seller_id" => vendor_id) }
 
+  state_machine :initial => 'cart', :use_transactions => false do
+    after_transition :from => 'address', :do => :clone_address_to_user
+  end
+
+  # Store bill and ship address to user, if user exits
+  #
+  def clone_address_to_user
+    if user.present?
+      user.build_bill_address(bill_address.clone.attributes) if user.bill_address.blank? && bill_address.present?
+      user.build_ship_address(ship_address.clone.attributes) if user.ship_address.blank? && ship_address.present?
+      user.save
+    end
+  end
+
 end
