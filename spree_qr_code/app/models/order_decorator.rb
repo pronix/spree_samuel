@@ -1,11 +1,6 @@
 Order.class_eval do
-  def finalize!
-    generate_qr_codes
-    update_attribute(:completed_at, Time.now)
-    self.out_of_stock_items = InventoryUnit.assign_opening_inventory(self)
-    # lock any optional adjustments (coupon promotions, etc.)
-    adjustments.optional.each { |adjustment| adjustment.update_attribute("locked", true) }
-    OrderMailer.confirm_email(self).deliver
+  state_machine :initial => 'cart', :use_transactions => false do
+    after_transition :to => 'complete', :do => :generate_qr_codes
   end
 
   protected
