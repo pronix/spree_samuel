@@ -1,0 +1,61 @@
+<% [:state, :country].each do |type| -%>
+<div id="<%= type.to_s %>_data" <%= 'style=display:none;' if type != :state %> class="advanced_reporting_data">
+  <div id="<%= type.to_s %>_canvas" class="canvas"></div>
+  <%= raw @report.ruportdata[type].to_html %>
+</div>
+<% end -%>
+
+<% content_for :sidebar do -%>
+<div class="report_details">
+  <h1><%= @report.name %></h1>
+  <p><%= @report.description %></p>
+  <%= @report.taxon_text %>
+  <%= @report.product_text %>
+</div>
+
+<ul id="show_data">
+  <li class="selected" id="state">
+    <label>States</label><br />
+    <a href="<%= @report.download_url(request.fullpath, 'pdf', "state") %>">PDF</a> |
+    <a href="<%= @report.download_url(request.fullpath, 'csv', "state") %>">CSV</a>
+  </li>
+  <li id="country">
+    <label>Countries</label><br />
+    <a href="<%= @report.download_url(request.fullpath, 'pdf', "country") %>">PDF</a> |
+    <a href="<%= @report.download_url(request.fullpath, 'csv', "country") %>">CSV</a>
+  </li>
+</ul>
+<%= render :partial => 'admin/reports/advanced_report_criteria', :locals => {} %>
+<% end -%>
+
+<% content_for :head do -%>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load('visualization', '1', {'packages': ['geomap']});        
+</script>
+<script type="text/javascript">
+    google.setOnLoadCallback(drawMaps);
+
+    function drawMaps() {
+	<% [:state, :country].each do |type| -%>
+    	var data_<%= type.to_s %> = new google.visualization.DataTable();
+    	data_<%= type.to_s %>.addRows(<%= @report.ruportdata[type].size %>);
+    	data_<%= type.to_s %>.addColumn('string', '<%= type.to_s.capitalize %>');
+    	data_<%= type.to_s %>.addColumn('number', '<%= @report.column %>');
+    	<% @report.ruportdata[type].each_with_index do |p, i| %>
+    	data_<%= type.to_s %>.setValue(<%= i.to_s %>, 0, "<%= p.data[type.to_s.capitalize] %>");
+    	data_<%= type.to_s %>.setValue(<%= i.to_s %>, 1, <%= p.data[@report.column].to_s.gsub(/^\$/, '') %>);
+    	<% end -%>
+
+    	var options_<%= type.to_s %> = { 'width' : '800px', 'height' : '500px' };
+        <% if type == :state %> 
+    	options_<%= type.to_s %>['region'] = 'US';
+        <% end -%>
+
+    	var <%= type.to_s %>_container = document.getElementById('<%= type.to_s %>_canvas');
+    	var <%= type.to_s %>_geomap = new google.visualization.GeoMap(<%= type.to_s %>_container);
+    	<%= type.to_s %>_geomap.draw(data_<%= type.to_s %>, options_<%= type.to_s %>);
+        <% end -%>
+    };
+</script>
+<% end -%>
