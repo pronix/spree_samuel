@@ -61,3 +61,12 @@ end
 Then /^cart should be empty$/ do
   Then %{I should not see "Cart: ("}
 end
+
+Then /^(?:|I )should see qr_code for product with (.*?)?$/ do |captured_fields|
+  captured_fields.split(/,\s+/).each do |field|
+    (name, value) = field.split(/:\s*/, 2)
+    fields[name] = value.delete('"')
+  end
+  product = Product.search.where(:conditions => fields)
+  Then %{I should see "td.qr_code" within "td[value='#{fields['name']}]':parent"}
+end
