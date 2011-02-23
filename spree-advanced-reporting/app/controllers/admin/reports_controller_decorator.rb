@@ -26,7 +26,7 @@ module Admin::ReportsControllerDecorator #module AdvancedReporting::ReportsContr
   def advanced_sales
     paginate_options = { :per_page => 15, :page => params[:page] }
     @vendors = Role.find_by_name(:seller).users.paginate(paginate_options)
-    @users = User.includes(:roles).where("roles_users.role_id = #{Role.find_by_name(:user).try(:id)} or roles_users.role_id is null").paginate(paginate_options)
+    @users = User.includes(:roles).where("roles_users.role_id is null").paginate(paginate_options)
     @products, @taxons, @payment_methods = Product.paginate(paginate_options), Taxon.paginate(paginate_options)
     @payment_methods =  PaymentMethod.available
     @promotions = Promotion.paginate(paginate_options) # coupons

@@ -38,8 +38,8 @@ end
 Given /^the following users exist:$/ do |table|
   table.hashes.each do |attr|
     Factory(:user,
-            :email => attr["email"], :password => attr["password"],                                   :password_confirmation => attr["password"],
-            :roles => (attr["roles"]||[]).split(",").map{ |x| Factory("#{x}_role")} )
+            :email => attr["email"], :password => attr["password"], :password_confirmation => attr["password"],
+            :roles => (attr["roles"]||[]).split(",").map{ |x| Factory("#{x}_role") unless x.blank? } )
   end
 end
 
