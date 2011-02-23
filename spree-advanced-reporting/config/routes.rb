@@ -1,19 +1,35 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :reports, :only => [:index, :show] do
-      collection do
-        get :sales_total
-        get :revenue
-        get :count
-        get :units
-        get :profit
-        get :top_customers
-        get :top_products
-        get :geo_revenue
-        get :geo_units
-        get :geo_profit
+      scope :via => [:get, :post] do
+        collection  do
+          match "advanced_sales"
+          match "sales_total"
+          match "revenue"
+          match "count"
+          match "units"
+          match "profit"
+          match "top_customers"
+          match "top_products"
+          match "geo_revenue"
+          match "geo_units"
+          match "geo_profit"
+        end
       end
     end
+    resources :advanced_sales, :only => [] do
+      scope  :via => [:get, :post] do
+        member do
+          match "users"
+          match "vendors"
+          match "products"
+          match "taxons"
+          match "payment_methods"
+          match "coupons"
+        end
+      end
+    end
+
   end
 
   match '/admin/reports/revenue' => 'admin/reports#revenue', :via => [:get, :post]

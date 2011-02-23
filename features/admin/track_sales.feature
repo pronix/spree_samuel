@@ -1,16 +1,32 @@
+# language: en
+
 Feature: Track Sales
   In order to track sales
   A Admin having an account
   Should be login into the Admin site
 
+  Background:
+    Given I am logged in as admin "admin@spree.com" with "password"
+
+  @green
   Scenario: viewing the sales page
-    Given I am logged in
-    When I am on sales page
-    Then I see the page
+    When I am on the admin reports page
+    Then I should see the following list of reports:
+      | Name           | Description                |
+      | Top Products   | Top Products               |
+      | Sales Total    | Sales total for all orders |
+      | Order Count    | Order Count                |
+      | Top Customers  | Top Customers              |
+      | Geo Revenue    | Geo Revenue                |
+      | Geo Units      | Geo Units                  |
+      | Units          | Units                      |
+      | Profit         | Profit                     |
+      | Geo Profit     | Geo Profit                 |
+      | Revenue        | Revenue                    |
+      | Advanced Sales | Advanced Sales             |
 
   Scenario: track sales by product
-    Given I am logged in
-    When I am on sales page
+    When I am on the admin reports page
     And I enter the required product
     And I press the "Track"
     Then I see the sales page

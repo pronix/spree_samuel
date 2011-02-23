@@ -4,23 +4,36 @@ module Admin::ReportsControllerDecorator #module AdvancedReporting::ReportsContr
       alias :spree_index :index
       def index; advanced_reporting_index; end
       before_filter :basic_report_setup, :actions => [:profit, :revenue, :units, :top_products, :top_customers, :geo_revenue, :geo_units, :count]
-    end 
+    end
   end
 
   ADVANCED_REPORTS = {
-      :revenue		=> { :name => "Revenue", :description => "Revenue" },
-      :units		=> { :name => "Units", :description => "Units" },
-      :profit		=> { :name => "Profit", :description => "Profit" },
-      :count		=> { :name => "Order Count", :description => "Order Count" },
-      :top_products	=> { :name => "Top Products", :description => "Top Products" },
-      :top_customers	=> { :name => "Top Customers", :description => "Top Customers" },
-      :geo_revenue	=> { :name => "Geo Revenue", :description => "Geo Revenue" },
-      :geo_units	=> { :name => "Geo Units", :description => "Geo Units" },
-      :geo_profit	=> { :name => "Geo Profit", :description => "Geo Profit" },
+    :revenue		=> { :name => "Revenue", :description => "Revenue" },
+    :units		=> { :name => "Units", :description => "Units" },
+    :profit		=> { :name => "Profit", :description => "Profit" },
+    :count		=> { :name => "Order Count", :description => "Order Count" },
+    :top_products	=> { :name => "Top Products", :description => "Top Products" },
+    :top_customers	=> { :name => "Top Customers", :description => "Top Customers" },
+    :geo_revenue	=> { :name => "Geo Revenue", :description => "Geo Revenue" },
+    :geo_units	=> { :name => "Geo Units", :description => "Geo Units" },
+    :geo_profit	=> { :name => "Geo Profit", :description => "Geo Profit" },
+
+  }
+  ADVANCED_SALES = {
+    :advanced_sales	=> { :name => "Advanced Sales", :description => "Advanced Sales" }
   }
 
+  def advanced_sales
+    paginate_options = { :per_page => 15, :page => params[:page] }
+    @vendors = Role.find_by_name(:seller).users.paginate(paginate_options)
+    @users = User.includes(:roles).where("roles_users.role_id = #{Role.find_by_name(:user).try(:id)} or roles_users.role_id is null").paginate(paginate_options)
+    @products, @taxons, @payment_methods = Product.paginate(paginate_options), Taxon.paginate(paginate_options)
+    @payment_methods =  PaymentMethod.available
+    @promotions = Promotion.paginate(paginate_options) # coupons
+  end
+
   def advanced_reporting_index
-    @reports = ADVANCED_REPORTS.merge(Admin::ReportsController::AVAILABLE_REPORTS)
+    @reports = ADVANCED_REPORTS.merge(Admin::ReportsController::AVAILABLE_REPORTS).merge(ADVANCED_SALES)
   end
 
   def basic_report_setup
@@ -68,14 +81,14 @@ module Admin::ReportsControllerDecorator #module AdvancedReporting::ReportsContr
       format.pdf do
         if params[:advanced_reporting]["report_type"] == :all
           send_data @report.all_data.to_pdf
-        else 
+        else
           send_data @report.ruportdata[params[:advanced_reporting]["report_type"]].to_pdf
-        end 
+        end
       end
       format.csv do
         if params[:advanced_reporting]["report_type"] == :all
           send_data @report.all_data.to_csv
-        else 
+        else
           send_data @report.ruportdata[params[:advanced_reporting]['report_type']].to_csv
         end
       end
