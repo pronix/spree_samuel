@@ -1,0 +1,21 @@
+<%= render "admin/shared/sub_menu_advanced_sales" %>
+<h1><%= t("product")%>: <%= @object.name %></h1>
+<% if @data == [] %>
+<h3><%= t("not_found_data")%></h3>
+<% else %>
+<table class="tablesorter admin-report">
+  <tr>
+    <th><%= t("spree.date") %></th>
+    <th><%= t("units") %></th>
+    <th><%= t("revenue") %></th>
+  </tr>
+  <% (@data||[]).group_by {|x| x["created_at"].end_of_day }.each do |d, v| %>
+    <tr>
+    <td><%= l d.to_date, :format => :long %></td>
+    <td><%= v.sum{|t| t["units"].to_f} %></td>
+    <td><%= number_to_currency v.sum{|t| t["total"].to_f} %></td>
+  </tr>
+
+  <% end %>
+</table>
+<% end %>
