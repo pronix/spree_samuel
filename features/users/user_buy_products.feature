@@ -1,6 +1,5 @@
 # language: en
 
-@green
 Feature: User Buy products
   In order to buy products
   A User having an account
@@ -12,7 +11,7 @@ Feature: User Buy products
       | name      | price | generate_qr_code |
       | product1  |  1000 | 1                |
       | product10 |   150 | 0                |
-    And I go to the home page 
+    And I go to the home page
 
   Scenario: viewing products page
     Then I should see "Shop by Category"
