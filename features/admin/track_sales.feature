@@ -76,30 +76,30 @@ Feature: Track Sales
       | Date              | Units | Revenue |
       | February 27, 2011 |   2.0 | $460.00 |
 
-  @wip
+  @green
   Scenario: track sales by category
-    Given I am logged in
-    When I am on sales page
-    And I enter the required category
-    And I press the "Track"
-    Then I see the sales page
-    And I see the sales of entered category
-
+    When I am on the admin reports page
+     And I follow "Advanced Sales"
+     And I follow "Tickets"
+    Then I should see the following taxons sales:
+      | Date              | Product | Units | Revenue |
+      | February 27, 2011 | Ticket1 |   2.0 | $460.00 |
+      | February 27, 2011 | Ticket2 |   1.0 | $130.00 |
   @wip
   Scenario: track sales by payment method
-    Given I am logged in
-    When I am on sales page
-    And i enter the required payment method
-    And i press the "Track"
-    Then i see the sales page
-    And I see the sales of entered payment method
+    When I am on the admin reports page
+     And I follow "Advanced Sales"
+     And I enter the required payment method
+     And I press the "Track"
+    Then I see the sales page
+     And I see the sales of entered payment method
 
   @wip
   Scenario: track sales by coupon code
-    Given I am logged in
-    When I am on sales page
-    And i enter the required coupon code
-    And i press the "Track"
-    Then i see the sales page
-    And I see the sales of entered coupon code
+    When I am on the admin reports page
+     And I follow "Advanced Sales"
+     And I enter the required coupon code
+     And I press the "Track"
+    Then I see the sales page
+     And I see the sales of entered coupon code
 
