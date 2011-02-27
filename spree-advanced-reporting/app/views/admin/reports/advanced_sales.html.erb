@@ -50,7 +50,7 @@
     <h4>Coupon</h4>
     <ul>
       <% @promotions.each do |promotion| %>
-      <li><%= link_to promotion.name, coupons_methods_admin_advanced_sale_path(promotion) %></li>
+      <li><%= link_to promotion.name, coupons_admin_advanced_sale_path(promotion) %></li>
       <% end %>
     </ul>
   </li>
