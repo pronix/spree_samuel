@@ -79,8 +79,9 @@ class Admin::AdvancedSalesController < Admin::BaseController
   #
   def load_data_for_products
     @search = LineItem.searchlogic(params[:search])
+    @end_date = params[:search][:created_at_less_than].blank? ? Time.zone.now.end_of_day : params[:search][:created_at_less_than]
     @data = LineItem.sale_by_product(object.id,
-                { :created_at => params[:search][:created_at_greater_than]..params[:search][:created_at_less_than] }).limit(20)
+                                     { :created_at => params[:search][:created_at_greater_than]..@end_date }).limit(20)
   end
 
   # Load data for taxon
@@ -114,12 +115,9 @@ class Admin::AdvancedSalesController < Admin::BaseController
         Time.zone.parse(params[:search][:created_at_greater_than]).beginning_of_day rescue Time.zone.now.beginning_of_month
       end
 
-    params[:search][:created_at_less_than] =
-      if params[:search][:created_at_less_than].blank?
-        Time.now.end_of_day
-      else
-        Time.zone.parse(params[:search][:created_at_less_than]).end_of_day rescue Time.now.end_of_day
-      end
+    unless params[:search][:created_at_less_than].blank?
+      params[:search][:created_at_less_than] =  Time.zone.parse(params[:search][:created_at_less_than]).end_of_day rescue ""
+    end
 
   end
 end

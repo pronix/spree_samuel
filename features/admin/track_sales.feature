@@ -67,13 +67,14 @@ Feature: Track Sales
       | R54023 |     1 | $230.00 |
       | R56892 |     1 | $230.00 |
 
-  @wip
+  @green
   Scenario: track sales by product
     When I am on the admin reports page
-    And I enter the required product
-    And I press the "Track"
-    Then I see the sales page
-    And I see the sales of entered product
+     And I follow "Advanced Sales"
+     And I follow "Ticket1"
+    Then I should see the following product sales:
+      | Date              | Units | Revenue |
+      | February 27, 2011 |   2.0 | $460.00 |
 
   @wip
   Scenario: track sales by category
