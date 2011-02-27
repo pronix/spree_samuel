@@ -1,0 +1,21 @@
+en:
+  authorize_net_statistic_for: Statistic for
+  expand: Show
+  collapse: Hide
+  batch_id: Batch ID
+  settled_at: Setted At
+  transaction_id: Transaction ID
+  account_number: Last Four
+  submitted_at: Submitted At
+  settle_amount: Settle Amount
+  charge_amount: Charge Amount
+  charge_count: Charge Count
+  error_count: Error Count
+  refund_count: Refund Count
+  decline_count: Decline Count
+  void_count: Void Count
+  account_type: Account Type
+  card_type: Card Type
+  authorize_net_api_login: Authorize Net api login
+  authorize_net_api_key: Authorize Net api key
+  authorize_net_api_gateway: Authorize Net gateway
