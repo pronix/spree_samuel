@@ -104,6 +104,7 @@ class Admin::AdvancedSalesController < Admin::BaseController
   # Load for payment method
   #
   def load_data_for_payment_methods
+    @data = object.orders
   end
 
   # Pretreatment of the parameters
