@@ -3,12 +3,12 @@ class Admin::TransactionsController < Admin::BaseController
   
   def index
     @from_date, @to_date = get_date_range(params[:month])
-    batches = AuthorizeNetReports.batches(@from_date, @to_date)
+    batches = AuthorizeNetReportsInterface.batches(@from_date, @to_date)
     @batches_with_transactions = batches.collect{|batch| [batch, AuthorizeNetReports.transactions(batch.id)]}.sort_by { |batch, transactions|  batch.settled_at }.reverse
   end
 
   def show
-    @transaction = AuthorizeNetReports.transaction(params[:id])
+    @transaction = AuthorizeNetReportsInterface.transaction(params[:id])
     render :text => "Not found", :status => 404 and return false unless @transaction
   end
 

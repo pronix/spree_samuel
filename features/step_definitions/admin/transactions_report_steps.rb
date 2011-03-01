@@ -4,7 +4,7 @@ Given /^the allready exist batches with statistics and transactions$/ do
   @time_now = Time.now
   Time.stubs(:now => @time_now)
 
-  @statistic = AuthorizeNet::Reporting::BatchStatistics.new(
+  @statistic = AuthorizeNetReports::AuthorizeNet::Reporting::BatchStatistics.new(
     :charge_amount => 80,
     :charge_count => 2,
     :error_count => 0,
@@ -13,7 +13,7 @@ Given /^the allready exist batches with statistics and transactions$/ do
     :void_count => 0
   )
 
-  @transaction = AuthorizeNet::Reporting::TransactionDetails.new(
+  @transaction = AuthorizeNetReports::AuthorizeNet::Reporting::TransactionDetails.new(
     :id => 155,
     :account_number => "XXXXX4546",
     :submitted_at => Time.now.to_datetime,
@@ -25,7 +25,7 @@ Given /^the allready exist batches with statistics and transactions$/ do
   @previous_month = Time.now - 1.month
 
   @this_month_batches = [
-    AuthorizeNet::Reporting::Batch.new(
+    AuthorizeNetReports::AuthorizeNet::Reporting::Batch.new(
       :id => 100,
       :settled_at => Time.now.to_datetime,
       :state => "sucessfullyCreated",
@@ -34,7 +34,7 @@ Given /^the allready exist batches with statistics and transactions$/ do
     )
   ]
   @previous_month_batches = [
-    AuthorizeNet::Reporting::Batch.new(
+    AuthorizeNetReports::AuthorizeNet::Reporting::Batch.new(
       :id => 55,
       :settled_at => @previous_month,
       :state => "sucessfullyCreated",
@@ -43,13 +43,13 @@ Given /^the allready exist batches with statistics and transactions$/ do
     )
   ]
 
-  AuthorizeNetReports.stubs(:batches).with(Time.now.at_beginning_of_month, Time.now.at_end_of_month).returns(@this_month_batches)
+  AuthorizeNetReportsInterface.stubs(:batches).with(Time.now.at_beginning_of_month, Time.now.at_end_of_month).returns(@this_month_batches)
 
-  AuthorizeNetReports.stubs(:batches).with(@previous_month.at_beginning_of_month, @previous_month.at_end_of_month).returns(@previous_month_batches)
+  AuthorizeNetReportsInterface.stubs(:batches).with(@previous_month.at_beginning_of_month, @previous_month.at_end_of_month).returns(@previous_month_batches)
 
-  AuthorizeNetReports.stubs(:transactions => [@transaction])
+  AuthorizeNetReportsInterface.stubs(:transactions => [@transaction])
 
-  AuthorizeNetReports.stubs(:transaction => @transaction)
+  AuthorizeNetReportsInterface.stubs(:transaction => @transaction)
 end
 
 Then /^I should see (.+) transactions$/ do |month|
