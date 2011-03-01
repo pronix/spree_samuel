@@ -1,10 +1,10 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   # The core, API agnostic transaction class. You shouldn't instantiate this one.
-  # Instead you should use AuthorizeNet::AIM::Transaction, AuthorizeNet::SIM::Transaction or AuthorizeNet::ARB::Transaction.
+  # Instead you should use AuthorizeNetReports::AuthorizeNet::AIM::Transaction, AuthorizeNetReports::AuthorizeNet::SIM::Transaction or AuthorizeNetReports::AuthorizeNet::ARB::Transaction.
   class Transaction
     
-    include AuthorizeNet::TypeConversions
+    include AuthorizeNetReports::AuthorizeNet::TypeConversions
     
     # Fields to convert to/from booleans.
     @@boolean_fields = []
@@ -12,7 +12,7 @@ module AuthorizeNet
     # Fields to convert to/from BigDecimal.
     @@decimal_fields = []
     
-    # DO NOT USE. Instantiate AuthorizeNet::AIM::Transaction, AuthorizeNet::SIM::Transaction or AuthorizeNet::ARB::Transaction instead.
+    # DO NOT USE. Instantiate AuthorizeNetReports::AuthorizeNet::AIM::Transaction, AuthorizeNetReports::AuthorizeNet::SIM::Transaction or AuthorizeNetReports::AuthorizeNet::ARB::Transaction instead.
     def initialize()
       @fields ||= {}
     end
@@ -33,17 +33,17 @@ module AuthorizeNet
       @fields
     end
         
-    # Takes an instance of AuthorizeNet::Address and adds it to the transaction.
+    # Takes an instance of AuthorizeNetReports::AuthorizeNet::Address and adds it to the transaction.
     def set_address(address)
       @fields.merge!(address.to_hash)
     end
     
-    # Takes an instance of AuthorizeNet::ShippingAddress and adds it to the transaction.
+    # Takes an instance of AuthorizeNetReports::AuthorizeNet::ShippingAddress and adds it to the transaction.
     def set_shipping_address(address)
       @fields.merge!(address.to_hash)
     end
     
-    # Takes an instance of AuthorizeNet::Customer and adds it to the transaction.
+    # Takes an instance of AuthorizeNetReports::AuthorizeNet::Customer and adds it to the transaction.
     def set_customer(customer)
       @fields.merge!(customer.to_hash)
     end
@@ -54,7 +54,7 @@ module AuthorizeNet
     # Internal method to handle multiple types of payment arguments.
     def handle_payment_argument(payment)
       case payment
-      when AuthorizeNet::CreditCard, AuthorizeNet::ECheck
+      when AuthorizeNetReports::AuthorizeNet::CreditCard, AuthorizeNetReports::AuthorizeNet::ECheck
         set_fields(payment.to_hash)
       else
         set_fields(:card_num => payment)

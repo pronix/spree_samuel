@@ -1,17 +1,17 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   # Models an order.
   class Order
     
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
     
     attr_accessor :invoice_num, :description, :tax, :tax_name, :tax_description, :freight, :freight_name, :freight_description, :duty, :duty_name, :duty_description, :tax_exempt, :po_num, :line_items
     
     def add_line_item(id = nil, name = nil, description = nil, quantity = nil, price = nil, taxable = nil)
-      if id.kind_of?(AuthorizeNet::LineItem)
+      if id.kind_of?(AuthorizeNetReports::AuthorizeNet::LineItem)
         line_item = id
       else
-        line_item = AuthorizeNet::LineItem.new({:line_item_id => id, :line_item_name => name, :line_item_description => description, :line_item_quantity => quantity, :line_item_price => price, :line_item_taxable => taxable})
+        line_item = AuthorizeNetReports::AuthorizeNet::LineItem.new({:line_item_id => id, :line_item_name => name, :line_item_description => description, :line_item_quantity => quantity, :line_item_price => price, :line_item_taxable => taxable})
       end
       @line_items = @line_items.to_a << line_item
     end

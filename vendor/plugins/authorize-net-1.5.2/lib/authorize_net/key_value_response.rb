@@ -1,8 +1,8 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   # The core, key/value response class. You shouldn't instantiate this one.
-  # Instead you should use AuthorizeNet::AIM::Response or AuthorizeNet::SIM::Response.
-  class KeyValueResponse < AuthorizeNet::Response
+  # Instead you should use AuthorizeNetReports::AuthorizeNet::AIM::Response or AuthorizeNetReports::AuthorizeNet::SIM::Response.
+  class KeyValueResponse < AuthorizeNetReports::AuthorizeNet::Response
     
     # Defines constants for each response code.
     module ResponseCode

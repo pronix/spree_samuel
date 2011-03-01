@@ -15,7 +15,7 @@ gem "exception_notification_rails3", :git => "git://github.com/railsware/excepti
  gem 'capistrano'
  gem 'capistrano-ext'
 
-
+gem 'authorize_net', '1.5.2', :path => 'vendor/plugins/authorize-net-1.5.2'
 # Spree extensons
 gem "samuel", :require => "samuel", :path => "samuel"
 gem "spree_qr_code", :require => "spree_qr_code", :path => "spree_qr_code"

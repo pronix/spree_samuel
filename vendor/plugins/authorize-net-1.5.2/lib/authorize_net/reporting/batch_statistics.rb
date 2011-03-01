@@ -1,9 +1,9 @@
-module AuthorizeNet::Reporting
+module AuthorizeNetReports::AuthorizeNet::Reporting
 
   # Models a batch of credit cards.
   class BatchStatistics
     
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
     
     attr_accessor :account_type, :charge_count, :charge_amount, :refund_count,
                   :refund_amount, :void_count, :decline_count, :error_count,

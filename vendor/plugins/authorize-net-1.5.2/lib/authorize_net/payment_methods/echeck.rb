@@ -1,4 +1,4 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   # Defines constants for each payment method type.
   module PaymentMethodType
@@ -7,7 +7,7 @@ module AuthorizeNet
   
   # Models an eCheck.
   class ECheck
-    PAYMENT_METHOD_CODE = AuthorizeNet::PaymentMethodType::ECHECK
+    PAYMENT_METHOD_CODE = AuthorizeNetReports::AuthorizeNet::PaymentMethodType::ECHECK
     
     # Defines constants for each bank account type.
     module AccountType

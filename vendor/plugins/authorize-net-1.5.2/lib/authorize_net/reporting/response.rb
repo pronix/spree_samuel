@@ -1,12 +1,12 @@
-module AuthorizeNet::Reporting
+module AuthorizeNetReports::AuthorizeNet::Reporting
 
   # The CIM response class.
-  class Response < AuthorizeNet::XmlResponse
+  class Response < AuthorizeNetReports::AuthorizeNet::XmlResponse
     
-    include AuthorizeNet::CIM::Fields
+    include AuthorizeNetReports::AuthorizeNet::CIM::Fields
     
     # Constructs a new response object from raw_response in the context of transaction.
-    # You don‘t typically construct this object yourself, as AuthorizeNet::Reeporting::Transaction
+    # You don‘t typically construct this object yourself, as AuthorizeNetReports::AuthorizeNet::Reeporting::Transaction
     # will build one for you when it makes the request to the gateway.
     def initialize(raw_response, transaction)
       super
@@ -45,12 +45,12 @@ module AuthorizeNet::Reporting
             first_name = node_content_unless_nil(child.at_css('firstName'))
             last_name = node_content_unless_nil(child.at_css('lastName'))
             unless first_name.nil? && last_name.nil?
-              address = AuthorizeNet::Address.new(:first_name => first_name, :last_name => last_name)
-              transaction.customer = AuthorizeNet::Customer.new(:address => address)
+              address = AuthorizeNetReports::AuthorizeNet::Address.new(:first_name => first_name, :last_name => last_name)
+              transaction.customer = AuthorizeNetReports::AuthorizeNet::Customer.new(:address => address)
             end
             invoice_number = node_content_unless_nil(child.at_css('invoiceNumber'))
             unless invoice_number.nil?
-              transaction.order = AuthorizeNet::Order.new(:invoice_num => invoice_number)
+              transaction.order = AuthorizeNetReports::AuthorizeNet::Order.new(:invoice_num => invoice_number)
             end
             transactions <<= transaction
           end
@@ -66,19 +66,19 @@ module AuthorizeNet::Reporting
         
         ip = node_content_unless_nil(@transaction.at_css('customerIP'))
         unless ip.nil?
-          transaction.customer ||= AuthorizeNet::CIM::CustomerProfile.new()
+          transaction.customer ||= AuthorizeNetReports::AuthorizeNet::CIM::CustomerProfile.new()
           transaction.customer.ip = ip
         end
         
         tax_exempt = node_content_unless_nil(@transaction.at_css('taxExempt'))
         unless tax_exempt.nil?
-          transaction.order ||= AuthorizeNet::Order.new()
+          transaction.order ||= AuthorizeNetReports::AuthorizeNet::Order.new()
           transaction.order.tax_exempt = value_to_boolean(tax_exempt)
         end
         
         tax = @transaction.at_css('tax')
         unless tax.nil?
-          transaction.order ||= AuthorizeNet::Order.new()
+          transaction.order ||= AuthorizeNetReports::AuthorizeNet::Order.new()
           tax_amount = node_content_unless_nil(tax.at_css('amount'))
           transaction.order.tax_amount = value_to_decimal(tax_amount) unless tax_amount.nil?
           transaction.order.tax_name = node_content_unless_nil(tax.at_css('name'))
@@ -87,7 +87,7 @@ module AuthorizeNet::Reporting
         
         shipping = @transaction.at_css('shipping')
         unless shipping.nil?
-          transaction.order ||= AuthorizeNet::Order.new()
+          transaction.order ||= AuthorizeNetReports::AuthorizeNet::Order.new()
           shipping_amount = node_content_unless_nil(shipping.at_css('amount'))
           transaction.order.shipping_amount = value_to_decimal(shipping_amount) unless shipping_amount.nil?
           transaction.order.shipping_name = node_content_unless_nil(shipping.at_css('name'))
@@ -96,7 +96,7 @@ module AuthorizeNet::Reporting
         
         duty = @transaction.at_css('duty')
         unless duty.nil?
-          transaction.order ||= AuthorizeNet::Order.new()
+          transaction.order ||= AuthorizeNetReports::AuthorizeNet::Order.new()
           duty_amount = node_content_unless_nil(duty.at_css('amount'))
           transaction.order.duty_amount = value_to_decimal(duty_amount) unless duty_amount.nil?
           transaction.order.duty_name = node_content_unless_nil(duty.at_css('name'))
@@ -105,7 +105,7 @@ module AuthorizeNet::Reporting
         
         line_items = @transaction.at_css('lineItems')
         unless line_items.nil?
-          transaction.order ||= AuthorizeNet::Order.new()
+          transaction.order ||= AuthorizeNetReports::AuthorizeNet::Order.new()
           line_items.element_children.each do |child|
             line_item = build_entity(child, Fields::LINE_ITEM_ENTITY_DESCRIPTION)
             transaction.order.add_line_item(line_item)
@@ -115,8 +115,8 @@ module AuthorizeNet::Reporting
         # Really not sure what to do with customer type here. It should go on a payment
         customer_type = node_content_unless_nil(@transaction.at_css('customer type'))
         unless customer_type.nil?
-          transaction.customer ||= AuthorizeNet::CIM::CustomerProfile.new()
-          transaction.customer.payment_profiles = [AuthorizeNet::CIM::PaymentProfile.new(:cust_type => customer_type)]
+          transaction.customer ||= AuthorizeNetReports::AuthorizeNet::CIM::CustomerProfile.new()
+          transaction.customer.payment_profiles = [AuthorizeNetReports::AuthorizeNet::CIM::PaymentProfile.new(:cust_type => customer_type)]
         end
         
         return transaction

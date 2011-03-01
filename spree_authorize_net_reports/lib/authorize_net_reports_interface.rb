@@ -1,4 +1,4 @@
-module AuthorizeNetReports
+module AuthorizeNetReportsInterface
   module_function
   def batches(from_date = Time.now.at_beginning_of_month, to_date = Time.now.at_end_of_month, include_statistic = true)
     response = report.get_settled_batch_list(from_date, to_date, include_statistic)
@@ -18,7 +18,7 @@ module AuthorizeNetReports
   end
  
   def report
-    AuthorizeNet::Reporting::Transaction.new(api_login_id, api_key, :gateway => gateway.to_sym)
+    AuthorizeNetReports::AuthorizeNet::Reporting::Transaction.new(api_login_id, api_key, :gateway => gateway.to_sym)
   end
 
   def api_login_id

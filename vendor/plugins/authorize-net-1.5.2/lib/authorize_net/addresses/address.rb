@@ -1,9 +1,9 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
 
   # Models an address.
   class Address
     
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
     
     attr_accessor :first_name, :last_name, :company, :street_address, :city, :state, :zip, :country, :phone, :fax, :customer_address_id
     

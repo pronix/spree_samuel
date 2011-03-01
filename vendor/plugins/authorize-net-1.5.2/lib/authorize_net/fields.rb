@@ -1,4 +1,4 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   EntityDescription = Struct.new(:node_structure, :entity_class, :arg_mapping)
   
@@ -253,10 +253,10 @@ module AuthorizeNet
       ]
       
       FIELDS = {
-        AuthorizeNet::XmlTransaction::Type::ARB_CREATE => CREATE_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::ARB_UPDATE => UPDATE_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::ARB_GET_STATUS => GET_STATUS_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::ARB_CANCEL => CANCEL_FIELDS
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::ARB_CREATE => CREATE_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::ARB_UPDATE => UPDATE_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::ARB_GET_STATUS => GET_STATUS_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::ARB_CANCEL => CANCEL_FIELDS
       }
     end
   end
@@ -519,22 +519,22 @@ module AuthorizeNet
       ]
       
       FIELDS = {
-        AuthorizeNet::XmlTransaction::Type::CIM_CREATE_PROFILE => CREATE_PROFILE_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_CREATE_PAYMENT => CREATE_PAYMENT_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_CREATE_ADDRESS => CREATE_ADDRESS_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_CREATE_TRANSACTION => CREATE_TRANSACTION_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_DELETE_PROFILE => DELETE_PROFILE_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_DELETE_PAYMENT => DELETE_PAYMENT_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_DELETE_ADDRESS => DELETE_ADDRESS_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_GET_PROFILE_IDS => GET_PROFILE_IDS_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_GET_PROFILE => GET_PROFILE_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_GET_PAYMENT => GET_PAYMENT_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_GET_ADDRESS => GET_ADDRESS_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_UPDATE_PROFILE => UPDATE_PROFILE_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_UPDATE_PAYMENT => UPDATE_PAYMENT_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_UPDATE_ADDRESS => UPDATE_ADDRESS_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_UPDATE_SPLIT => UPDATE_SPLIT_FIELDS,
-        AuthorizeNet::XmlTransaction::Type::CIM_VALIDATE_PAYMENT => VALIDATE_PAYMENT_FIELDS
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_CREATE_PROFILE => CREATE_PROFILE_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_CREATE_PAYMENT => CREATE_PAYMENT_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_CREATE_ADDRESS => CREATE_ADDRESS_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_CREATE_TRANSACTION => CREATE_TRANSACTION_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_DELETE_PROFILE => DELETE_PROFILE_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_DELETE_PAYMENT => DELETE_PAYMENT_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_DELETE_ADDRESS => DELETE_ADDRESS_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_GET_PROFILE_IDS => GET_PROFILE_IDS_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_GET_PROFILE => GET_PROFILE_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_GET_PAYMENT => GET_PAYMENT_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_GET_ADDRESS => GET_ADDRESS_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_UPDATE_PROFILE => UPDATE_PROFILE_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_UPDATE_PAYMENT => UPDATE_PAYMENT_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_UPDATE_ADDRESS => UPDATE_ADDRESS_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_UPDATE_SPLIT => UPDATE_SPLIT_FIELDS,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::CIM_VALIDATE_PAYMENT => VALIDATE_PAYMENT_FIELDS
       }
       
       ADDRESS_ENTITY_DESCRIPTION = EntityDescription.new(
@@ -550,7 +550,7 @@ module AuthorizeNet
           {:phoneNumber => :phone},
           {:faxNumber => :fax}
         ],
-        AuthorizeNet::Address
+        AuthorizeNetReports::AuthorizeNet::Address
       )
       
       CREDIT_CARD_ENTITY_DESCRIPTION = EntityDescription.new(
@@ -560,7 +560,7 @@ module AuthorizeNet
           {:cardCode => :card_code},
           {:cardType => :card_type}
         ],
-        AuthorizeNet::CreditCard,
+        AuthorizeNetReports::AuthorizeNet::CreditCard,
         [:card_num, :exp_date]
       )
       
@@ -573,7 +573,7 @@ module AuthorizeNet
           {:echeckType => :echeck_type},
           {:bankName => :bank_name}
         ],
-        AuthorizeNet::ECheck,
+        AuthorizeNetReports::AuthorizeNet::ECheck,
         [:routing_number, :account_number, :bank_name, :account_holder_name]
       )
       
@@ -587,7 +587,7 @@ module AuthorizeNet
             {:bankAccount => ECHECK_ENTITY_DESCRIPTION, :_value => :payment_method}
           ]}
         ],
-        AuthorizeNet::CIM::PaymentProfile
+        AuthorizeNetReports::AuthorizeNet::CIM::PaymentProfile
       )
       
       PROFILE_ENTITY_DESCRIPTION = EntityDescription.new(
@@ -599,7 +599,7 @@ module AuthorizeNet
           {:paymentProfiles => PAYMENT_PROFILE_ENTITY_DESCRIPTION, :_multivalue => :payment_profiles},
           {:shipTo => ADDRESS_ENTITY_DESCRIPTION, :_multivalue => :addresses}
         ],
-        AuthorizeNet::CIM::CustomerProfile
+        AuthorizeNetReports::AuthorizeNet::CIM::CustomerProfile
       )
     end
   end
@@ -644,7 +644,7 @@ module AuthorizeNet
           {:refundReturnedItemsAmount => :refund_returned_items_amount, :_converter => :value_to_decimal},
           {:refundReturnedItemsCount => :refund_returned_items_count, :_converter => :value_to_integer}
         ],
-        AuthorizeNet::Reporting::BatchStatistics
+        AuthorizeNetReports::AuthorizeNet::Reporting::BatchStatistics
       )
       
       BATCH_ENTITY_DESCRIPTION = EntityDescription.new([
@@ -654,21 +654,21 @@ module AuthorizeNet
           {:paymentMethod => :payment_method},
           {:statistics => [{:statistic => BATCH_STATISTICS_ENTITY_DESCRIPTION, :_multivalue => :statistics}]}
         ],
-        AuthorizeNet::Reporting::Batch
+        AuthorizeNetReports::AuthorizeNet::Reporting::Batch
       )
       
       FDSFILTER_ENTITY_DESCRIPTION = EntityDescription.new([
         {:name => :name},
         {:action => :action}
         ],
-        AuthorizeNet::Reporting::FDSFilter
+        AuthorizeNetReports::AuthorizeNet::Reporting::FDSFilter
       )
       
       CUSTOMER_ENTITY_DESCRIPTION = EntityDescription.new([
           {:id => :id},
           {:email => :email}
         ],
-        AuthorizeNet::CIM::CustomerProfile
+        AuthorizeNetReports::AuthorizeNet::CIM::CustomerProfile
       )
       
       ORDER_ENTITY_DESCRIPTION = EntityDescription.new([
@@ -676,7 +676,7 @@ module AuthorizeNet
           {:description => :description},
           {:purchaseOrderNumber => :po_num}
         ],
-        AuthorizeNet::Order
+        AuthorizeNetReports::AuthorizeNet::Order
       )
       
       LINE_ITEM_ENTITY_DESCRIPTION = EntityDescription.new([
@@ -687,7 +687,7 @@ module AuthorizeNet
           {:unityPrice => :price, :_convert => :value_to_decimal},
           {:taxable => :taxable, :_convert => :value_to_boolean}
         ],
-        AuthorizeNet::LineItem
+        AuthorizeNetReports::AuthorizeNet::LineItem
       )
       
       TRANSACTION_DETAILS_ENTITY_DESCRIPTION = EntityDescription.new([
@@ -715,21 +715,21 @@ module AuthorizeNet
           {:settleAmount => :settle_amount, :_converter => :value_to_decimal},
           {:prepaidBalanceRemaining => :prepaid_balance_remaining, :_converter => :value_to_decimal},
           {:payment => [
-            {:creditCard => AuthorizeNet::CIM::Fields::CREDIT_CARD_ENTITY_DESCRIPTION, :_value => :payment_method},
-            {:bankAccount => AuthorizeNet::CIM::Fields::ECHECK_ENTITY_DESCRIPTION, :_value => :payment_method}
+            {:creditCard => AuthorizeNetReports::AuthorizeNet::CIM::Fields::CREDIT_CARD_ENTITY_DESCRIPTION, :_value => :payment_method},
+            {:bankAccount => AuthorizeNetReports::AuthorizeNet::CIM::Fields::ECHECK_ENTITY_DESCRIPTION, :_value => :payment_method}
           ]},
           {:customer => CUSTOMER_ENTITY_DESCRIPTION, :_value => :customer},
-          {:billTo => AuthorizeNet::CIM::Fields::ADDRESS_ENTITY_DESCRIPTION, :_value => :bill_to},
-          {:shipTo => AuthorizeNet::CIM::Fields::ADDRESS_ENTITY_DESCRIPTION, :_value => :ship_to},
+          {:billTo => AuthorizeNetReports::AuthorizeNet::CIM::Fields::ADDRESS_ENTITY_DESCRIPTION, :_value => :bill_to},
+          {:shipTo => AuthorizeNetReports::AuthorizeNet::CIM::Fields::ADDRESS_ENTITY_DESCRIPTION, :_value => :ship_to},
           {:recurringBilling => :recurring_billing, :_convert => :value_to_boolean}
         ],
-        AuthorizeNet::Reporting::TransactionDetails
+        AuthorizeNetReports::AuthorizeNet::Reporting::TransactionDetails
       )
       
       FIELDS = {
-        AuthorizeNet::XmlTransaction::Type::REPORT_GET_BATCH_LIST => GET_BATCH_LIST,
-        AuthorizeNet::XmlTransaction::Type::REPORT_GET_TRANSACTION_LIST => GET_TRANSACTION_LIST,
-        AuthorizeNet::XmlTransaction::Type::REPORT_GET_TRANSACTION_DETAILS => GET_TRANSACTION_DETAILS
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::REPORT_GET_BATCH_LIST => GET_BATCH_LIST,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::REPORT_GET_TRANSACTION_LIST => GET_TRANSACTION_LIST,
+        AuthorizeNetReports::AuthorizeNet::XmlTransaction::Type::REPORT_GET_TRANSACTION_DETAILS => GET_TRANSACTION_DETAILS
       }
     end
   end

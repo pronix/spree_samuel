@@ -1,9 +1,9 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
 
   # Models a shipping address.
   class ShippingAddress < Address
     
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
 
     def to_hash
       hash = {

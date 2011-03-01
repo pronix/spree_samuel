@@ -1,9 +1,9 @@
-module AuthorizeNet::Reporting
+module AuthorizeNetReports::AuthorizeNet::Reporting
 
   # Models the details of a transaction.
   class TransactionDetails
     
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
     
     attr_accessor :id, :submitted_at, :status, :order, :customer, :account_type,
                   :account_number, :settle_amount, :reference_id, :split_tender_id,

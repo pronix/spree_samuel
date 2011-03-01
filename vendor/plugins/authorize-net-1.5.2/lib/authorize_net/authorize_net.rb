@@ -1,5 +1,6 @@
 # :title: Authorize.Net Ruby SDK
 # The core AuthoizeNet module. The entire SDK is name-spaced inside of this module.
+module AuthorizeNetReports
 module AuthorizeNet
   
   # Some type conversion routines that will be injected into our Transaction/Response
@@ -151,4 +152,5 @@ module AuthorizeNet
     
   end
 
+end
 end

@@ -1,9 +1,9 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   # Models an email receipt.
   class EmailReceipt
     
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
     
     attr_accessor :header, :footer, :merchant_email, :email_customer
     

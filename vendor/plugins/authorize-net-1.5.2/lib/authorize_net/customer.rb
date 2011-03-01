@@ -1,9 +1,9 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   # Models a customer.
   class Customer
     attr_accessor
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
     
     attr_accessor :phone, :fax, :email, :id, :ip, :address, :description
     

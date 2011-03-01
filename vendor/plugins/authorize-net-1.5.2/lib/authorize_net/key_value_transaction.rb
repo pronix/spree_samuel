@@ -1,8 +1,8 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   # The core, key/value transaction class. You shouldn't instantiate this one.
-  # Instead you should use AuthorizeNet::AIM::Transaction or AuthorizeNet::SIM::Transaction.
-  class KeyValueTransaction < AuthorizeNet::Transaction
+  # Instead you should use AuthorizeNetReports::AuthorizeNet::AIM::Transaction or AuthorizeNetReports::AuthorizeNet::SIM::Transaction.
+  class KeyValueTransaction < AuthorizeNetReports::AuthorizeNet::Transaction
     
     # Constants for both the various Authorize.Net payment gateways are defined here.
     module Gateway
@@ -59,7 +59,7 @@ module AuthorizeNet
     # Fields to convert to/from BigDecimal.
     @@decimal_fields = []
     
-    # DO NOT USE. Instantiate AuthorizeNet::AIM::Transaction or AuthorizeNet::SIM::Transaction instead.
+    # DO NOT USE. Instantiate AuthorizeNetReports::AuthorizeNet::AIM::Transaction or AuthorizeNetReports::AuthorizeNet::SIM::Transaction instead.
     def initialize()
       super
       @custom_fields ||= {}
@@ -100,7 +100,7 @@ module AuthorizeNet
       end
     end
     
-    # Takes an instance of AuthorizeNet::EmailReceipt and adds it to the transaction.
+    # Takes an instance of AuthorizeNetReports::AuthorizeNet::EmailReceipt and adds it to the transaction.
     def set_email_receipt(email)
       @fields.merge!(email.to_hash)
     end
@@ -134,13 +134,13 @@ module AuthorizeNet
     # has already been run, it will return nil.
     # 
     # +amount+:: The amount to charge. Accepts a string in the format "%0.2f", a Float or a BigDecimal.
-    # +credit_card+:: The credit card or eCheck to charge. Accepts an instance of AuthorizeNet::CreditCard, AuthorizeNet::ECheck, or a string of digits (in which case the expiration should be added using set_fields).
+    # +credit_card+:: The credit card or eCheck to charge. Accepts an instance of AuthorizeNetReports::AuthorizeNet::CreditCard, AuthorizeNetReports::AuthorizeNet::ECheck, or a string of digits (in which case the expiration should be added using set_fields).
     # +options+:: A hash with any of following keys: cardholder_auth_indicator, cardholder_auth_value. These are for CAVV and can be ignored in most cases.
     # 
     # 
     # Typical usage:
     # 
-    #   credit_card = AuthorizeNet::CreditCard.new('4111111111111111', '1120')
+    #   credit_card = AuthorizeNetReports::AuthorizeNet::CreditCard.new('4111111111111111', '1120')
     #   response = transaction.purchase(10.0, credit_card)
     # 
     def purchase(amount, credit_card, options = {})
@@ -156,8 +156,8 @@ module AuthorizeNet
     # has already been run, it will return nil.
     # 
     # +amount+:: The amount to refund. Accepts a string in the format "%0.2f", a Float or a BigDecimal.
-    # +transaction+:: The transaction ID to apply the refund to. Accepts a string of the transaction ID, an instance of AuthorizeNet::Transaction or AuthorizeNet::Response.
-    # +credit_card+:: The credit card or eCheck to charge. Accepts an instance of AuthorizeNet::CreditCard, AuthorizeNet::ECheck, or a string of digits. In many cases you only need the last 4 digits of the credit card here.
+    # +transaction+:: The transaction ID to apply the refund to. Accepts a string of the transaction ID, an instance of AuthorizeNetReports::AuthorizeNet::Transaction or AuthorizeNetReports::AuthorizeNet::Response.
+    # +credit_card+:: The credit card or eCheck to charge. Accepts an instance of AuthorizeNetReports::AuthorizeNet::CreditCard, AuthorizeNetReports::AuthorizeNet::ECheck, or a string of digits. In many cases you only need the last 4 digits of the credit card here.
     # 
     # 
     # Typical usage:
@@ -177,7 +177,7 @@ module AuthorizeNet
     # account to support ECC (expanded credits capability) transactions.
     # 
     # +amount+:: The amount to refund. Accepts a string in the format "%0.2f", a Float or a BigDecimal.
-    # +credit_card+:: The credit card or eCheck to charge. Accepts an instance of AuthorizeNet::CreditCard, AuthorizeNet::ECheck, or a string of digits.
+    # +credit_card+:: The credit card or eCheck to charge. Accepts an instance of AuthorizeNetReports::AuthorizeNet::CreditCard, AuthorizeNetReports::AuthorizeNet::ECheck, or a string of digits.
     # 
     # Typical usage:
     # 
@@ -193,7 +193,7 @@ module AuthorizeNet
     # Sets up and submits a void (VOID) transaction. Returns a response object. If the transaction
     # has already been run, it will return nil. Note that you can only void unsettled transactions.
     # 
-    # +transaction+:: The transaction ID of the transaction to void. Accepts a string of the transaction ID, an instance of AuthorizeNet::Transaction or AuthorizeNet::Response.
+    # +transaction+:: The transaction ID of the transaction to void. Accepts a string of the transaction ID, an instance of AuthorizeNetReports::AuthorizeNet::Transaction or AuthorizeNetReports::AuthorizeNet::Response.
     # 
     # 
     # Typical usage:
@@ -211,13 +211,13 @@ module AuthorizeNet
     # the card yet.
     # 
     # +amount+:: The amount to authorize. Accepts a string in the format "%0.2f", a Float or a BigDecimal.
-    # +credit_card+:: The credit card or eCheck to charge. Accepts an instance of AuthorizeNet::CreditCard, AuthorizeNet::ECheck, or a string of digits (in which case the expiration should be added using set_fields).
+    # +credit_card+:: The credit card or eCheck to charge. Accepts an instance of AuthorizeNetReports::AuthorizeNet::CreditCard, AuthorizeNetReports::AuthorizeNet::ECheck, or a string of digits (in which case the expiration should be added using set_fields).
     # +options+:: A hash with any of following keys: cardholder_auth_indicator, cardholder_auth_value. These are for CAVV and can be ignored in most cases.
     # 
     # 
     # Typical usage:
     # 
-    #   credit_card = AuthorizeNet::CreditCard.new('4111111111111111', '1120')
+    #   credit_card = AuthorizeNetReports::AuthorizeNet::CreditCard.new('4111111111111111', '1120')
     #   response = transaction.authorize(10.0, credit_card)
     #
     def authorize(amount, credit_card, options = {})
@@ -250,7 +250,7 @@ module AuthorizeNet
     # Sets up and submits a capture (PRIOR_AUTH_CAPTURE) transaction. Returns a response object. Use this method
     # to actually charge a card that you previously put a hold on (using authorize).
     # 
-    # +transaction+:: The transaction ID to capture. Accepts a string of the transaction ID, an instance of AuthorizeNet::Transaction or AuthorizeNet::Response.
+    # +transaction+:: The transaction ID to capture. Accepts a string of the transaction ID, an instance of AuthorizeNetReports::AuthorizeNet::Transaction or AuthorizeNetReports::AuthorizeNet::Response.
     # +amount+:: The amount to capture (only if less than the amount originally authorized, otherwise leave as Nil). Accepts a string in the format "%0.2f", a Float, a BigDecimal or Nil.
     # 
     # 

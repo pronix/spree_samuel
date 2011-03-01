@@ -1,4 +1,4 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   # Defines constants for each payment method type.
   module PaymentMethodType
@@ -7,7 +7,7 @@ module AuthorizeNet
   
   # Models a credit card.
   class CreditCard
-    PAYMENT_METHOD_CODE = AuthorizeNet::PaymentMethodType::CREDIT_CARD
+    PAYMENT_METHOD_CODE = AuthorizeNetReports::AuthorizeNet::PaymentMethodType::CREDIT_CARD
     
     # The option defaults for the constructor.
     @@option_defaults = {

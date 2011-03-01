@@ -1,9 +1,9 @@
-module AuthorizeNet::CIM
+module AuthorizeNetReports::AuthorizeNet::CIM
   
   # Models a customer profile.
-  class CustomerProfile < AuthorizeNet::Customer
+  class CustomerProfile < AuthorizeNetReports::AuthorizeNet::Customer
     
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
     
     attr_accessor :customer_profile_id, :payment_profiles
     

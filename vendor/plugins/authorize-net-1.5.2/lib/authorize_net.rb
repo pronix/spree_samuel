@@ -37,29 +37,6 @@ require "authorize_net/key_value_transaction"
 require "authorize_net/xml_transaction"
 require "authorize_net/fields"
 
-# AIM
-
-require "authorize_net/aim/transaction"
-require "authorize_net/aim/response"
-
-# SIM
-
-require "authorize_net/sim/hosted_payment_form"
-require "authorize_net/sim/hosted_receipt_page"
-require "authorize_net/sim/transaction"
-require "authorize_net/sim/response"
-
-# ARB
-
-require "authorize_net/arb/subscription"
-require "authorize_net/arb/response"
-require "authorize_net/arb/transaction"
-
-# CIM
-
-require "authorize_net/cim/response"
-require "authorize_net/cim/transaction"
-
 # Reporting
 
 require "authorize_net/reporting/response"
@@ -69,14 +46,16 @@ require "authorize_net/reporting/transaction"
 
 if defined?(Rails)
   if defined?(Rails::Railtie)
-    module AuthorizeNet
-      class Railtie < Rails::Railtie
-        initializer "authorize_net.load_path_initialize" do |app|
-          %w{ models controllers helpers }.each do |dir|
-            path = File.join(File.dirname(__FILE__), 'app', dir)
-            $LOAD_PATH << path
-            ActiveSupport::Dependencies.autoload_paths << path
-            ActiveSupport::Dependencies.autoload_once_paths.delete(path)
+    module AuthorizeNetReports
+      module AuthorizeNet
+        class Railtie < Rails::Railtie
+          initializer "authorize_net.load_path_initialize" do |app|
+            %w{ models controllers helpers }.each do |dir|
+              path = File.join(File.dirname(__FILE__), 'app', dir)
+              $LOAD_PATH << path
+              ActiveSupport::Dependencies.autoload_paths << path
+              ActiveSupport::Dependencies.autoload_once_paths.delete(path)
+            end
           end
         end
       end

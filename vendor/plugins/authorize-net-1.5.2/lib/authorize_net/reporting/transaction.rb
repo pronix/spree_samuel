@@ -1,26 +1,26 @@
-module AuthorizeNet::Reporting
+module AuthorizeNetReports::AuthorizeNet::Reporting
 
   # The Reporting API transaction class.
-  class Transaction < AuthorizeNet::XmlTransaction
+  class Transaction < AuthorizeNetReports::AuthorizeNet::XmlTransaction
     
-    include AuthorizeNet::Reporting::Fields
+    include AuthorizeNetReports::AuthorizeNet::Reporting::Fields
     
     # The class to wrap our response in.
-    @response_class = AuthorizeNet::Reporting::Response
+    @response_class = AuthorizeNetReports::AuthorizeNet::Reporting::Response
     
     # Fields to convert to/from Date.
     @@datetime_fields = [:first_settlement_date, :last_settlement_date]
     
     # Constructs a Reporting transaction. You can use the new Reporting transaction object
     # to issue a request to the payment gateway and parse the response into a new
-    # AuthorizeNet::Reporting::Response object.
+    # AuthorizeNetReports::AuthorizeNet::Reporting::Response object.
     # 
     # +api_login_id+:: Your API login ID, as a string.
     # +api_transaction_key+:: Your API transaction key, as a string.
     # +options+:: A hash of options. See below for values.
     # 
     # Options
-    # +gateway+:: The gateway to submit the transaction to. Can be a URL string, an AuthorizeNet::Reporting::Transaction::Gateway constant, or one of the convenience symbols :sandbox, :test, :production, or :live (:test is an alias for :sandbox, and :live is an alias for :production). 
+    # +gateway+:: The gateway to submit the transaction to. Can be a URL string, an AuthorizeNetReports::AuthorizeNet::Reporting::Transaction::Gateway constant, or one of the convenience symbols :sandbox, :test, :production, or :live (:test is an alias for :sandbox, and :live is an alias for :production).
     # +verify_ssl+:: A boolean indicating if the SSL certificate of the +gateway+ should be verified. Defaults to false.
     # +reference_id+:: A string that can be used to identify a particular transaction with its response. Will be echo'd in the response, only if it was provided in the transaction. Defaults to nil.
     #
@@ -29,7 +29,7 @@ module AuthorizeNet::Reporting
     end
     
     # Sets up and submits a getSettledBatchListRequest transaction. If this transaction has already been
-    # run, this method will return nil. Otherwise it will return an AuthorizeNet::Reporting::Response object. The
+    # run, this method will return nil. Otherwise it will return an AuthorizeNetReports::AuthorizeNet::Reporting::Response object. The
     # response object will have an array of Batch objects available via its batch_list method if
     # the request was successful.
     # 
@@ -50,7 +50,7 @@ module AuthorizeNet::Reporting
     end
     
     # Sets up and submits a getTransactionListRequest transaction. If this transaction has already been
-    # run, this method will return nil. Otherwise it will return an AuthorizeNet::Reporting::Response object. The
+    # run, this method will return nil. Otherwise it will return an AuthorizeNetReports::AuthorizeNet::Reporting::Response object. The
     # response object will have an array of TransactionDetail objects available via its transactions method if
     # the request was successful. These TransactionDetail objects will not be fully populated. Use get_transaction_details
     # to get all the details.
@@ -70,7 +70,7 @@ module AuthorizeNet::Reporting
     end
     
     # Sets up and submits a getTransactionDetailsRequest transaction. If this transaction has already been
-    # run, this method will return nil. Otherwise it will return an AuthorizeNet::Reporting::Response object. The
+    # run, this method will return nil. Otherwise it will return an AuthorizeNetReports::AuthorizeNet::Reporting::Response object. The
     # response object will have a TransactionDetail object available via its transactions method if
     # the request was successful. This TransactionDetail object will have more data than the limited version
     # returned by get_transaction_list.

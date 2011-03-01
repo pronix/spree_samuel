@@ -1,4 +1,4 @@
-module AuthorizeNet::CIM
+module AuthorizeNetReports::AuthorizeNet::CIM
   # Models a payment profile.
   class PaymentProfile
     
@@ -7,7 +7,7 @@ module AuthorizeNet::CIM
       BUSINESS = 'business'
     end
     
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
     
     attr_accessor :cust_type, :billing_address, :payment_method, :customer_payment_profile_id
     

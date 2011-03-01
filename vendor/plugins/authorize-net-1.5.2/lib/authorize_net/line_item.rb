@@ -1,9 +1,9 @@
-module AuthorizeNet
+module AuthorizeNetReports::AuthorizeNet
   
   # Models an line item.
   class LineItem
     
-    include AuthorizeNet::Model
+    include AuthorizeNetReports::AuthorizeNet::Model
     
     attr_accessor :id, :name, :description, :quantity, :price, :taxable
     
