@@ -12,6 +12,7 @@ role :db,  "178.79.132.92:6022", :primary => true # This is where Rails migratio
 set :ssh_options, {:forward_agent => true}
 
 set :rails_env, "production"
+set :branch, "spree_integration"
 
 after "deploy:update","deploy:migrate"
 before "deploy:migrate", "symlink:db"
