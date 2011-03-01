@@ -36,8 +36,8 @@ end
 
 namespace :bundle do
   task :install do
-      run "cd #{shared_path}/cached-copy; bundle install"# --deployment;"
-      #run "ln -nfs #{shared_path}/cached-copy/vendor/bundle  #{latest_release}/vendor/bundle"
+      run "cd #{shared_path}/cached-copy; bundle install --deployment;"
+      run "ln -nfs #{shared_path}/.bundle  #{latest_release}/.bundle"
   end
 end
 
