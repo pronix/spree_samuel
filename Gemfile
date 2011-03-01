@@ -15,10 +15,12 @@ gem "exception_notification_rails3", :git => "git://github.com/railsware/excepti
  gem 'capistrano'
  gem 'capistrano-ext'
 
-
+gem 'authorize_net', '1.5.2', :path => 'vendor/plugins/authorize-net-1.5.2'
 # Spree extensons
 gem "samuel", :require => "samuel", :path => "samuel"
 gem "spree_qr_code", :require => "spree_qr_code", :path => "spree_qr_code"
+gem "advanced_reporting", :require => "advanced_reporting", :path => "spree-advanced-reporting"
+gem "spree_authorize_net_reports", :require => "spree_authorize_net_reports", :path => "spree_authorize_net_reports"
 
 gem 'rqrcode', '0.3.3'
 gem 'rmagick', '2.13.1'
@@ -41,4 +43,5 @@ group :development, :test, :cucumber do
   gem 'email_spec',          "~> 1.1.1"
   gem 'database_cleaner'
   gem 'ruby-debug'
+  gem 'mocha',               '0.9.12'
 end

@@ -1,0 +1,2 @@
+module Admin::AdvancedSalesHelper
+end

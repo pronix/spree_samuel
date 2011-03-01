@@ -1,0 +1,26 @@
+<%= render "admin/shared/sub_menu_advanced_sales" %>
+<h1><%= t("user")%>: <%= @object.login %></h1>
+<% if @data.blank? %>
+<h3><%= t("not_found_data")%></h3>
+<% else %>
+<table class="tablesorter admin-report">
+  <tr>
+    <th><%= t("spree.date") %></th>
+    <th><%= t("order_number") %></th>
+    <th><%= t("units") %></th>
+    <th><%= t("revenue") %></th>
+  </tr>
+  <% (@data||[]).each do |d| %>
+  <tr>
+    <td><%= l d.created_at, :format => :long %></td>
+    <td><%= d.number %></td>
+    <td><%= d.line_items.sum(:quantity) %></td>
+    <td><%= number_to_currency d.total %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'admin/shared/report_criteria', :locals => {} %>
+<% end %>

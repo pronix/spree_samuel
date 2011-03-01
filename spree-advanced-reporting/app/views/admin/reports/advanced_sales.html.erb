@@ -1,0 +1,59 @@
+<h1><%= t("advanced_sales") %></h1>
+<h3>Track Sales</h3>
+<ul class="track-sales">
+  <li>
+    <h4>User</h4>
+    <ul>
+      <% @users.each do |user| %>
+      <li><%= link_to user.login, users_admin_advanced_sale_path(user) %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li>
+    <h4>Vendor</h4>
+    <ul>
+      <% @vendors.each do |user| %>
+      <li><%= link_to user.login, vendors_admin_advanced_sale_path(user) %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li>
+    <h4>Products</h4>
+    <ul>
+      <% @products.each do |product| %>
+      <li><%= link_to product.name, products_admin_advanced_sale_path(product) %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li>
+    <h4>Categories</h4>
+    <ul>
+      <% @taxons.each do |taxon| %>
+      <li><%= link_to taxon.name, taxons_admin_advanced_sale_path(taxon) %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li>
+    <h4>Payment Methods</h4>
+    <ul>
+      <% @payment_methods.each do |payment_method| %>
+      <li><%= link_to payment_method.name, payment_methods_admin_advanced_sale_path(payment_method) %></li>
+      <% end %>
+    </ul>
+   </li>
+
+  <li>
+    <h4>Coupon</h4>
+    <ul>
+      <% @promotions.each do |promotion| %>
+      <li><%= link_to promotion.name, coupons_admin_advanced_sale_path(promotion) %></li>
+      <% end %>
+    </ul>
+  </li>
+</ul>
+
+

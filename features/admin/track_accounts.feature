@@ -36,9 +36,9 @@ Feature: Track Accounts
       | customer@spree.com  | User: customer@spree.com  | Show Track |
     When async I click "Show Track" within track accounts for "customer1@spree.com"
     Then I should see the following list of orders for "customer1@spree.com":
-      | date                    | number | total   | payment state       |
-      | February 16, 2010 19:00 | R54023 | $98.00  | Balance Due $98.00  |
-      | June 10, 2010 18:00     | R56892 | $100.00 | Balance Due $100.00 |
+      | number | total   | payment state       |
+      | R54023 | $98.00  | Balance Due $98.00  |
+      | R56892 | $100.00 | Balance Due $100.00 |
 
 
 

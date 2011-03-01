@@ -41,3 +41,7 @@ Given /^load default data$/ do
     Fixtures.create_fixtures('spec/data/default', File.basename(file, '.*'))
   end
 end
+
+Given /^exist payment method Check$/ do
+  Factory.create(:payment_method, { :environment => Rails.env, :active => true, :display_on => "" })
+end

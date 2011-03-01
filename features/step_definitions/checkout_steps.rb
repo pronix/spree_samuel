@@ -24,8 +24,7 @@ When /^(?:|I )add a product with (.*?)? to cart$/ do |captured_fields|
   end
 
   price = fields.delete('price')
-
-  if Product.search.master_price_equals(price).count(:conditions => fields) == 0
+  if Product.search.master_price_equals(price).do_search.count(:conditions => fields) == 0
     Factory(:product, fields.merge('price' => price,  :sku => 'ABC',
                                                       :available_on => (Time.now - 100.days)))
   end
@@ -60,4 +59,13 @@ end
 
 Then /^cart should be empty$/ do
   Then %{I should not see "Cart: ("}
+end
+
+Then /^(?:|I )should see qr_code for product with (.*?)?$/ do |captured_fields|
+  captured_fields.split(/,\s+/).each do |field|
+    (name, value) = field.split(/:\s*/, 2)
+    fields[name] = value.delete('"')
+  end
+  product = Product.search.where(:conditions => fields)
+  Then %{I should see "td.qr_code" within "td[value='#{fields['name']}]':parent"}
 end
