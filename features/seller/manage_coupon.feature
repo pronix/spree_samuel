@@ -38,8 +38,7 @@ Feature: Manage Coupon
   Scenario: with empty information for coupon
     When I go to the admin promotions page
      And I follow "New Promotion"
-     And I fill in "Name" with ""
-     And I fill in "Code" with ""
+     And I leave the required information empty
      And I press "Create"
     Then I should see "prohibited this record from being saved"
      And I should see "Name can't be blank"

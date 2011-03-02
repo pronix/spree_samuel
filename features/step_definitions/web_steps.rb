@@ -214,6 +214,10 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   end
 end
 
+When /^I leave the required information empty$/ do
+  # nothing
+end
+
 Then /^show me the page$/ do
   save_and_open_page
 end

@@ -1,4 +1,5 @@
 Given /^the following categories exist:$/ do |table|
+  Taxonomy.destroy_all
   data = table.raw
   taxonomy_category = Factory.create(:taxonomy,{ :name => "Categories"})
   taxon_category = Taxon.find_by_name("Categories") ||
