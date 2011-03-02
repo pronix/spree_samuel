@@ -64,12 +64,15 @@ Then /^I should not see in admin panel the following list of promotions:$/ do |t
 end
 
 
-Then /^I should see in admin panel the following list of "([^\"]*)":$/ do |collection, table|
+Then /^I should see in admin panel the following list of "([^\"]*)":$/ do |collection,  table|
   klass = collection.classify.constantize
-  table.hashes.each do |attr|
-    @obj = klass.find_by_name(attr["id_name"])
-    with_scope("tr##{klass.model_name.singular}_#{@obj.id}") do
-      attr.except("id_name").values.each{ |a| page.should have_selector("td", :text => a) }
+  table.hashes.each_with_index do |attr, i|
+    @obj = klass.send "find_by_#{attr.keys.first.downcase}", attr[attr.keys.first]
+    with_scope("table.index") do
+      attr.except("id_name").values.each do |a| 
+        page.should have_selector("td")
+        page.should have_content(a)
+      end
     end
   end
 
