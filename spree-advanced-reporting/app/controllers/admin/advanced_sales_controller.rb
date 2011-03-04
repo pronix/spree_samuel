@@ -1,4 +1,5 @@
 class Admin::AdvancedSalesController < Admin::BaseController
+  before_filter :object
   before_filter :load_data
 
   # User sales
@@ -36,7 +37,8 @@ class Admin::AdvancedSalesController < Admin::BaseController
   end
 
   private
-
+  # sale object
+  #
   def object(params_action = params[:action])
     @object ||= case params_action.to_s
                 when /users|vendors/   then User.find(params[:id])
@@ -48,6 +50,8 @@ class Admin::AdvancedSalesController < Admin::BaseController
     @object
   end
 
+  # Load data
+  #
   def load_data(params_action = params[:action])
     prepare_params
     case params_action.to_s
@@ -57,16 +61,54 @@ class Admin::AdvancedSalesController < Admin::BaseController
     end
   end
 
+  # Load data for user
+  #
   def load_data_for_users
     @search = object.orders.searchlogic(params[:search])
     @data = @search.do_search
   end
 
+  # Load data for vendor
+  #
   def load_data_for_vendors
     @search = object.seller_orders.searchlogic(params[:search])
     @data = @search.do_search
   end
 
+  # Load data for product
+  #
+  def load_data_for_products
+    @search = LineItem.searchlogic(params[:search])
+    @end_date = params[:search][:created_at_less_than].blank? ? Time.zone.now.end_of_day : params[:search][:created_at_less_than]
+    @data = LineItem.sale_by_product(object.id,
+                                     { :created_at => params[:search][:created_at_greater_than]..@end_date }).limit(20)
+  end
+
+  # Load data for taxon
+  #
+  def load_data_for_taxons
+    @products = Product.in_taxons(object)
+    @search = LineItem.searchlogic(params[:search])
+    @end_date = params[:search][:created_at_less_than].blank? ? Time.zone.now.end_of_day : params[:search][:created_at_less_than]
+    @data = LineItem.sale_by_products(@products,
+                                     { :created_at => params[:search][:created_at_greater_than]..@end_date }).limit(20)
+
+  end
+
+  # Load for coupon
+  #
+  def load_data_for_coupons
+
+  end
+
+  # Load for payment method
+  #
+  def load_data_for_payment_methods
+    @data = object.orders
+  end
+
+  # Pretreatment of the parameters
+  #
   def prepare_params
 
     params[:search] = {} unless params[:search]
@@ -79,8 +121,8 @@ class Admin::AdvancedSalesController < Admin::BaseController
         Time.zone.parse(params[:search][:created_at_greater_than]).beginning_of_day rescue Time.zone.now.beginning_of_month
       end
 
-    if params[:search] && !params[:search][:created_at_less_than].blank?
-      params[:search][:created_at_less_than] = Time.zone.parse(params[:search][:created_at_less_than]).end_of_day rescue ""
+    unless params[:search][:created_at_less_than].blank?
+      params[:search][:created_at_less_than] =  Time.zone.parse(params[:search][:created_at_less_than]).end_of_day rescue ""
     end
 
   end

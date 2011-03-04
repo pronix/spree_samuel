@@ -37,3 +37,7 @@
 
 </table>
 <%= link_to t("edit"), edit_addresses_path(@address_type) %>
+|
+<%=link_to t("continue_shopping"), products_path, :class => 'continue' %>
+|
+<%=link_to t("back_to_my_account"), user_path(current_user), :class => 'continue' %>

@@ -13,3 +13,7 @@ Fill Simple data (products e.t.c) (Don't start on production!)
 
 Create admin users
   rake db:admin:create
+
+...or simply
+  rake db:bootstrap
+after db:create and that's it!!!

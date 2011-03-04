@@ -9,3 +9,4 @@ en:
   inventory_management: Inventory Management
   title_list_inventory: "Here is a list of everything you've got in inventory. To add or subtract items, simply modify the number listed in the 'On Hand' column."
   update_inventory: Update Inventory
+  back_to_my_account: Back to my account

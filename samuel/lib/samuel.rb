@@ -9,6 +9,11 @@ module Samuel
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
         Rails.env.production? ? require(c) : load(c)
+      end if Product.table_exists?
+
+      PaymentMethod.class_eval do
+        has_many :payments
+        has_many :orders, :through => :payments
       end
     end
 

@@ -1,0 +1,36 @@
+<p>
+  <label>
+    <%= t("transaction_id") %>:
+  </label>
+  <%= @transaction.id %>
+</p>
+<p>
+  <label>
+    <%= t("submitted_at") %>:
+  </label>
+  <%= l @transaction.submitted_at, :format => :long %>
+</p>
+<p>
+  <label>
+    <%= t("status") %>:
+  </label>
+  <%= @transaction.status%>
+</p>
+<p>
+  <label>
+    <%= t("settle_amount") %>:
+  </label>
+  <%= @transaction.settle_amount %>
+</p>
+<p>
+  <label>
+    <%= t("account_number") %>:
+  </label>
+  <%= @transaction.payment_method.card_number %>
+</p>
+<p>
+  <label>
+    <%= t("card_type") %>:
+  </label>
+  <%= @transaction.payment_method.card_type %>
+</p>

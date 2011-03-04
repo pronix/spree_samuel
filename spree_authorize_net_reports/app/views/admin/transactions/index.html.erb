@@ -1,0 +1,98 @@
+<% content_for :head do %>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+
+    jQuery('.show_other_month').click(function(){
+      window.location = "?month=" + jQuery("#date_month").val() + "/" + jQuery("#date_year").val();
+      return false;
+    })
+
+    jQuery('.toggle_transactions').click(
+    function(){
+      var id = jQuery(this).attr("id").match(/(\d)*$/)[0];
+      if (jQuery("tr#batch_" + id + ":hidden").length != 0){
+        jQuery("tr#batch_" + id).show();
+        jQuery("#toggle_link_" + id).html('<%= t("collapse") %>');
+      }else{
+        jQuery("tr#batch_" + id).hide();
+        jQuery("#toggle_link_" + id).html('<%= t("expand") %>');
+      }
+      return false;
+    });
+
+  })
+  
+</script>
+<% end  %>
+
+<h2>
+  <%= "#{t("authorize_net_statistic_for")} #{@to_date.strftime("%B %Y")}" %>
+</h2>
+
+
+<p>
+  <%=  select_month(@to_date) %>
+  <%=  select_year(@to_date) %>
+  <a href="#" class="show_other_month"><%= t("show") %></a>
+</p>
+
+<table class="index">
+  <thead>
+    <tr>
+      <th><%= t("batch_id") %></th>
+      <th><%= t("settled_at") %></th>
+      <th><%= t("charge_amount") %></th>
+      <th><%= t("charge_count") %></th>
+      <th><%= t("payment_method") %></th>
+      <th><%= t("state") %></th>
+      <th><%= t("error_count") %></th>
+      <th><%= t("refund_count") %></th>
+      <th><%= t("decline_count") %></th>
+      <th><%= t("void_count") %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @batches_with_transactions.each do |batch, transactions| %>
+      <% statistic = batch.statistics.first %>
+      <tr>
+        <td><%= link_to batch.id, "#", :class => "toggle_transactions", :id => "batch_id_link_#{batch.id}" %> </td>
+        <td><%= l batch.settled_at, :format => :long %> </td>
+        <td><%= format_price(statistic.charge_amount) %> </td>
+        <td><%= statistic.charge_count %> </td>
+        <td><%= batch.payment_method %> </td>
+        <td><%= batch.state %> </td>
+        <td><%= statistic.error_count %> </td>
+        <td><%= statistic.refund_count %> </td>
+        <td><%= statistic.decline_count %> </td>
+        <td><%= statistic.void_count %> </td>
+        <td><%= link_to "More", "#", :class => "toggle_transactions", :id => "toggle_link_#{batch.id}" %> </td>
+      </tr>
+      <tr style="display: none" id="<%= "batch_#{batch.id}" %>">
+        <td></td>
+        <td colspan="8">
+          <table class="index">
+            <tr>
+              <th><%= t("transaction_id") %></th>
+              <th><%= t("account_number") %></th>
+              <th><%= t("submitted_at") %></th>
+              <th><%= t("settle_amount") %></th>
+              <th><%= t("account_type") %></th>
+              <th><%= t("status") %></th>
+            </tr>
+            <% transactions.each do |transaction| %>
+              <tr>
+                <td><%= link_to transaction.id, admin_transaction_path(transaction.id), {:target => "_blank"} %></td>
+                <td><%= transaction.account_number %></td>
+                <td><%= l transaction.submitted_at, :format => :long %></td>
+                <td><%= format_price(transaction.settle_amount) %></td>
+                <td><%= transaction.account_type %></td>
+                <td><%= transaction.status %></td>
+              </tr>
+            <% end %>
+          </table>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
