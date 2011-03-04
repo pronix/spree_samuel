@@ -17,3 +17,9 @@ Create admin users
 ...or simply
   rake db:bootstrap
 after db:create and that's it!!!
+
+
+
+== Api documentation
+
+http://spreecommerce.com/documentation/rest.html
