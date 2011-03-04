@@ -7,7 +7,7 @@ module Quickbooks
 
   COMPANY_ID = "198248836"
   APP_TOKEN = "dmbtq37kinfqnd53tgnvb4i6sbs"
-  DB_ID = 1
+  DB_ID = "bf4azdea3"
   
   def self.included(base)
     base.extend(ClassMethods)
