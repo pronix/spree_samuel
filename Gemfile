@@ -24,6 +24,10 @@ gem "spree_authorize_net_reports", :require => "spree_authorize_net_reports", :p
 
 gem 'rqrcode', '0.3.3'
 gem 'rmagick', '2.13.1'
+gem 'intuit-saml'
+gem 'hpricot'
+gem 'httparty'
+gem 'libxml-ruby'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
