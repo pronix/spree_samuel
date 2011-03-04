@@ -4,6 +4,10 @@ require 'open-uri'
 # Quickbooks Online Module
 #
 module Quickbooks
+
+  COMPANY_ID = "198248836"
+  APP_TOKEN = "dmbtq37kinfqnd53tgnvb4i6sbs"
+  DB_ID = 1
   
   def self.included(base)
     base.extend(ClassMethods)
@@ -14,8 +18,8 @@ module Quickbooks
     # realm = Company ID
     # apptoken = App Token
     #
-    def attach_ids_realm
-      response = Nokogiri::XML( open( "https://workplace.intuit.com/db/bdb5rjd6h?act=API_AttachIDSRealm&realm=198248836&apptoken=dtmd897bfsw85bb6bneceb6wnze3" ) )
+    def post
+      response = Nokogiri::XML( open( "https://workplace.intuit.com/db/#{DB_ID}?act=API_AttachIDSRealm&realm=#{COMPANY_ID}&apptoken=#{APP_TOKEN}" ) )
       # parse response
 
     end
