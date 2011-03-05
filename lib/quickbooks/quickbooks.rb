@@ -17,7 +17,7 @@ module Quickbooks
   # apptoken = App Token
   #
   def post
-    puts params.inspect
+    puts "Params: " + params.inspect
     # Grab SAML message passed from IPP
     saml_response = params['SAMLResponse']
 
@@ -45,6 +45,8 @@ module Quickbooks
 
     # Make call to IDS and receive the XML payload
     response = HTTParty.post(path, options)
+
+    puts "Query Response: " + response.inspect
 
     # Hpricot payload and pull out customer names for display
     doc = Hpricot.XML(response)
