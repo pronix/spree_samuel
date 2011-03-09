@@ -9,4 +9,5 @@ Rails.application.routes.draw do
     match '/inventory' => 'inventory#update', :as => 'inventory', :via => :put
     match '/track-accounts' => 'track_accounts#index',  :as => 'track_accounts', :via => :get
   end
+  match "/quickbooks/gateway" => "quickbooks#gateway", :as => 'quickbooks_gateway', :via => :post  
 end

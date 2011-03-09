@@ -16,7 +16,7 @@ module Quickbooks
   # realm = Company ID
   # apptoken = App Token
   #
-  def post
+  def gateway
     puts "Params: " + params.inspect
     # Grab SAML message passed from IPP
     saml_response = params['SAMLResponse']
