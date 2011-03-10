@@ -11,7 +11,7 @@ module Quickbooks
   COMPANY_ID = "198248836"
   APP_TOKEN = "dmbtq37kinfqnd53tgnvb4i6sbs"
   DB_ID = "bf4azdea3"
-  PRIVATE_KEY = "key"
+  PRIVATE_KEY = "key" # there must be private_key, i.e. contents of nova.adenin.ru.key
   
   # realm = Company ID
   # apptoken = App Token
