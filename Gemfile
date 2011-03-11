@@ -29,6 +29,10 @@ gem 'hpricot'
 gem 'httparty'
 gem 'libxml-ruby'
 
+#gem 'fcg-service-ext', :require => "fcg-service-ext", :path => "fcg-service-ext"
+#gem 'fcg-core-ext', :require => "fcg-core-ext", :path => "fcg-core-ext"
+#gem "fcg-service-clients", ">= 0.2.0", :require => "fcg-service-clients", :path => "fcg-service-clients"
+
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
