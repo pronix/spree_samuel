@@ -21,9 +21,9 @@ Feature: Manage Category(taxons)
   Scenario: viewing the categories list page
     When I go to the admin taxonomies page
     Then I should see in admin panel the following list of "taxonomies":
-      | id_name | Name    |
-      | Tickets | Tickets |
-      | Drink   | Drink   |
+      | Name    |
+      | Tickets |
+      | Drink   |
     And I should not see the taxonomy Delete link for "Tickets"
     And I should not see the taxonomy Delete link for "Drink"
 
