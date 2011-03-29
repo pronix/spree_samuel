@@ -20,6 +20,34 @@ Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
+Given /^user "([^\"]*)" has the following orders:$/ do |email_user, table|
+  @user = User.find_by_email(email_user)
+  table.hashes.each do |order_attributes|
+    @order_hash = order_attributes.except("created_at")
+    @order_hash = @order_hash.except("state")
+    @state = order_attributes["state"].to_s
+    @order = Factory.create(:order, @order_hash.merge({ :user => @user, :state => @state, :completed_at => Time.now }))
+
+    @order.created_at = Time.parse(order_attributes["created_at"]) if order_attributes.has_key?("created_at")
+    @order.number = order_attributes["number"] if order_attributes.has_key?("number")
+    @order.save!
+  end
+end
+
+Given /^I am logged in$/ do
+  Given 'I am signed up as "user@spree.com/password"'
+  Given "I am on the login page"
+  Given 'I fill in "Email" with "user@spree.com"'
+  Given 'I fill in "Password" with "password"'
+  Given 'I press "Log in"'
+end
+
+Then /^I should get pdf file$/ do
+  #FIXME разобраться как тестировать скачивание о формат скачиваемого
+  true
+end
+
+
 When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end

@@ -18,6 +18,9 @@ gem "exception_notification_rails3", :git => "git://github.com/railsware/excepti
 gem 'authorize_net', '1.5.2', :path => 'vendor/plugins/authorize-net-1.5.2'
 # Spree extensons
 gem "samuel", :require => "samuel", :path => "samuel"
+gem "spree_social", :git => "git://github.com/spree/spree_social.git"
+gem "prawn"
+gem "spree_print_invoice", :path => "./spree-print-invoice"
 gem "spree_qr_code", :require => "spree_qr_code", :path => "spree_qr_code"
 gem "advanced_reporting", :require => "advanced_reporting", :path => "spree-advanced-reporting"
 gem "spree_authorize_net_reports", :require => "spree_authorize_net_reports", :path => "spree_authorize_net_reports"

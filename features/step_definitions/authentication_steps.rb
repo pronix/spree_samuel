@@ -27,7 +27,7 @@ end
 Given /^I am signed up as "([^\"]*)"(?: with roles "([^\"]*)")?$/ do |email_password, roles|
   email, password = email_password.split('/')
   Factory(:user,
-          :email => email, :password => password, :password_confirmation => password,
+          :email => email, :password => password, :password_confirmation => password, :bill_address => Factory(:address), :ship_address => Factory(:address),
           :roles => (roles||"").split(",").map{ |x| Factory("#{x}_role")} )
 end
 
